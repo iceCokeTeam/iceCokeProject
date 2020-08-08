@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.shop.pojo.Admin;
 import com.shop.service.AdminService;
+import com.shop.utils.CustomizedToken;
 import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
 import com.shop.utils.Result;
@@ -42,7 +43,7 @@ public class AdminController {
     @PostMapping("/login")
     public Result loginAdmin(String adminName, String password) {
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(adminName, password);
+        CustomizedToken token = new CustomizedToken(adminName, password, "admin");
         JSONObject json = new JSONObject();
         try {
             subject.login(token);

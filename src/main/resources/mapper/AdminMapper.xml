@@ -15,7 +15,7 @@
         select count(*) from admin;
     </select>
 
-    <select id="selectAdminByName" parameterType="Admin">
+    <select id="selectAdminByName" parameterType="String" resultType="Admin">
         select adminName, password, name, email, status, adminImg from admin where adminName = #{adminName};
     </select>
 </mapper>

@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectUserList().size();
     }
 
+    @Override
+    public User selectUserByName(String userName) {
+        return userMapper.selectUserByName(userName);
+    }
+
 }

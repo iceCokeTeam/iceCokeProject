@@ -9,4 +9,7 @@
     <select id="selectUserList" resultType="User">
         select userId, userName, email, phone, userImg from user;
     </select>
+    <select id="selectUserByName" resultType="User" parameterType="String">
+        select * from user where userName = #{userName};
+    </select>
 </mapper>

@@ -1,7 +1,8 @@
 package com.shop.realm;
 
+import com.shop.pojo.Admin;
 import com.shop.pojo.User;
-import com.shop.service.UserService;
+import com.shop.service.AdminService;
 import com.shop.utils.CustomizedToken;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -14,10 +15,10 @@ import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
 
-public class UserRealm extends AuthorizingRealm {
+public class AdminRealm extends AuthorizingRealm {
 
     @Resource
-    private UserService userService;
+    private AdminService adminService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -33,11 +34,12 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         CustomizedToken token = (CustomizedToken) authenticationToken;
-        if (token.getLoginType().equals("user")){
-            User user = userService.selectUserByName(token.getUsername());
-            if (user == null)
+        if (token.getLoginType().equals("admin")) {
+            Admin admin = adminService.selectAdminByName(token.getUsername());
+            if (admin == null)
                 return null;
-            return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes("abc"), getName());
+
+            return new SimpleAuthenticationInfo(admin, admin.getPassword(), ByteSource.Util.bytes("abc"), getName());
         }
         return null;
     }

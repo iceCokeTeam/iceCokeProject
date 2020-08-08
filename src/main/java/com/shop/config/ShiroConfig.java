@@ -1,16 +1,21 @@
 package com.shop.config;
 
+import com.shop.realm.AdminRealm;
 import com.shop.realm.UserRealm;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.util.SavedRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -52,10 +57,16 @@ public class ShiroConfig {
 
     // 关联UserRealm
     @Bean(name = "defaultWebSecurityManager")
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("adminRealm") AdminRealm adminRealm, @Qualifier("userRealm") UserRealm userRealm) {
         // 创建securityManager
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(userRealm);
+        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+        List<Realm> realms = new ArrayList<>();
+        realms.add(adminRealm);
+        realms.add(userRealm);
+        authenticator.setRealms(realms);
+        authenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
+        securityManager.setAuthenticator(authenticator);
         return securityManager;
     }
 
@@ -70,6 +81,18 @@ public class ShiroConfig {
         matcher.setHashIterations(1024);
         userRealm.setCredentialsMatcher(matcher);
         return userRealm;
+    }
+
+    @Bean
+    public AdminRealm adminRealm() {
+        AdminRealm adminRealm = new AdminRealm();
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+        // 设置MD5加密
+        matcher.setHashAlgorithmName("MD5");
+        // 设置散列次数
+        matcher.setHashIterations(1024);
+        adminRealm.setCredentialsMatcher(matcher);
+        return adminRealm;
     }
 
 }

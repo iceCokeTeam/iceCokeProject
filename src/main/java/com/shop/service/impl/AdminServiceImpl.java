@@ -19,7 +19,7 @@ public class AdminServiceImpl implements AdminService {
     // 管理员添加
     @Override
     public Integer registerAdmin(Admin admin) {
-        Md5Hash hash = new Md5Hash(admin.getPassword(), countAdmin().toString(), 1024);
+        Md5Hash hash = new Md5Hash(admin.getPassword(), "abc", 1024);
         admin.setPassword(hash.toHex());
         admin.setCreateTime(new Date());
         return adminMapper.registerAdmin(admin);

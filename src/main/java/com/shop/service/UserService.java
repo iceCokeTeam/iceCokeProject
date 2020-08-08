@@ -10,4 +10,6 @@ public interface UserService {
     List<User> selectUserList();
 
     Integer countUser();
+
+    User selectUserByName(String userName);
 }
