@@ -2,6 +2,7 @@ package com.shop.controller;
 
 import com.shop.pojo.User;
 import com.shop.service.UserService;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @RequestMapping("/register")
+    @PostMapping("/register")
     public Map<String, Object> registerUser(User user) {
         int suss = userService.registerUser(user);
         Map<String, Object> map = new HashMap<>();

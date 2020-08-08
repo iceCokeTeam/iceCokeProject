@@ -36,4 +36,9 @@ public class AdminServiceImpl implements AdminService {
     public Integer countAdmin() {
         return adminMapper.countAdmin();
     }
+
+    @Override
+    public Admin selectAdminByName(String adminName) {
+        return adminMapper.selectAdminByName(adminName);
+    }
 }

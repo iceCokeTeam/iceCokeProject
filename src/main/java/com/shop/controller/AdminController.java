@@ -12,6 +12,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,38 +26,35 @@ public class AdminController {
     @Resource
     private AdminService adminService;
 
-    @RequestMapping("/register")
+    @PostMapping("/register")
     public Result registerAdmin(Admin admin) {
         if (admin.getAdminName() == null && admin.getPassword() == null && admin.getEmail() == null && admin.getName() == null && admin.getAdminImg() == null) {
             return Result.create(HttpCode.BAD_REQUEST, Message.PARAMETER_ERROR);
         }
-
+        if (adminService.selectAdminByName(admin.getAdminName()) != null){
+            return Result.create(HttpCode.OK, Message.USER_EXISTS);
+        }
         if (adminService.registerAdmin(admin) == 1) {
-        } else {
             return Result.create(HttpCode.OK, Message.REGISTER_SUCCESS);
         }
         return Result.create(HttpCode.INTERNAL_SERVER_ERROR, Message.REGISTER_ERROR);
     }
 
-    @RequestMapping("/login")
-    public Map<String, Object> loginAdmin(String adminName, String password) {
+    @PostMapping("/login")
+    public Result loginAdmin(String adminName, String password) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(adminName, password);
-        Map<String, Object> map = new HashMap<>();
+        JSONObject json = new JSONObject();
         try {
             subject.login(token);
-            map.put("status", HttpCode.OK);
-            map.put("msg", "登录成功");
+            json.put("admin", adminService.selectAdminByName(adminName));
+            return Result.create(HttpCode.OK, Message.LOGIN_SUCCESS, json);
         } catch (UnknownAccountException e) {
-            map.put("status", HttpCode.FORBIDDEN);
-            map.put("msg", "用户名不存在");
+            return Result.create(HttpCode.BAD_REQUEST, Message.USER_NOT_EXISTS);
         } catch (IncorrectCredentialsException e) {
-            map.put("status", HttpCode.FORBIDDEN);
-            map.put("msg", "密码错误");
+            return Result.create(HttpCode.BAD_REQUEST, Message.PASSWORD_ERROR);
         } catch (AuthenticationException e) {
-            map.put("status", HttpCode.FORBIDDEN);
-            map.put("msg", "认证失败");
+            return Result.create(HttpCode.BAD_REQUEST, Message.AUTHENTICATION_FAILED);
         }
-        return map;
     }
 }

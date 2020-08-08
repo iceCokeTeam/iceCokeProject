@@ -13,4 +13,6 @@ public interface AdminService {
     List<Admin> selectAdminList();
 
     Integer countAdmin();
+
+    Admin selectAdminByName(String adminName);
 }
