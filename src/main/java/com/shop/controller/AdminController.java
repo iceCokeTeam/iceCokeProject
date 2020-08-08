@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.auth0.jwt.JWT;
 import com.shop.pojo.Admin;
 import com.shop.service.AdminService;
 import com.shop.utils.HttpCode;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,7 +30,7 @@ public class AdminController {
         if (admin.getAdminName() == null && admin.getPassword() == null && admin.getEmail() == null && admin.getName() == null && admin.getAdminImg() == null) {
             return Result.create(HttpCode.BAD_REQUEST, Message.PARAMETER_ERROR);
         }
-        if (adminService.selectAdminByName(admin.getAdminName()) != null){
+        if (adminService.selectAdminByName(admin.getAdminName()) != null) {
             return Result.create(HttpCode.OK, Message.USER_EXISTS);
         }
         if (adminService.registerAdmin(admin) == 1) {
@@ -56,5 +55,10 @@ public class AdminController {
         } catch (AuthenticationException e) {
             return Result.create(HttpCode.BAD_REQUEST, Message.AUTHENTICATION_FAILED);
         }
+    }
+
+    @RequestMapping("/test")
+    public String test() {
+        return "test";
     }
 }

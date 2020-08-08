@@ -18,8 +18,8 @@ public class UserRealm extends AuthorizingRealm {
         // 获取当前登录的对象
         Subject subject = SecurityUtils.getSubject();
         User currentUser = (User) subject.getPrincipal();
-
         // 设置当前用户的权限
+        authorizationInfo.addStringPermission("/admin/register");
         return authorizationInfo;
     }
 
@@ -32,6 +32,6 @@ public class UserRealm extends AuthorizingRealm {
 
         // 密码认证，shiro做
         // 参数1：数据库名, 参数2：数据库md5+salt后的密码, 参数3：注册时的随机盐, 参数4：realm的名字
-        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes("abc"), getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes("5"), getName());
     }
 }

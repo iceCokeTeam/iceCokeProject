@@ -32,11 +32,14 @@ public class ShiroConfig {
             role: 拥有某个角色权限才能访问
          */
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/user/add", "authc");
-        filterMap.put("/user/update", "authc");
-
-        filterMap.put("/user/add", "perms[user:add]");
-        filterMap.put("/user/update", "perms[user:update]");
+        filterMap.put("/admin/login", "anon");
+        filterMap.put("/user/login", "anon");
+        filterMap.put("/doc.html", "anon");
+        filterMap.put("/swagger-ui.html", "anon");
+        filterMap.put("/swagger-resources/**", "anon");
+        filterMap.put("/v2/**", "anon");
+        filterMap.put("/webjars/**", "anon");
+        filterMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         // 设置登录的请求
