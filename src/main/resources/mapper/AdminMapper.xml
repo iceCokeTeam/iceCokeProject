@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.AdminMapper">
+    <insert id="registerAdmin" parameterType="Admin">
+        insert into admin(adminName, password, name, email, status, createTime, adminImg) values (#{adminName}, #{password}, #{name}, #{email}, #{status}, #{createTime}, #{adminImg});
+    </insert>
+
+    <select id="selectAdminList" resultType="Admin">
+        select adminName, name, email, status, createTime, loginTime from admin;
+    </select>
+
+    <select id="countAdmin" resultType="Int">
+        select count(*) from admin;
+    </select>
+
+    <select id="selectAdminByName" parameterType="Admin">
+        select adminName, password, name, email, status, adminImg from admin where adminName = #{adminName};
+    </select>
+</mapper>

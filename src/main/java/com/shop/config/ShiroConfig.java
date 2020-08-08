@@ -1,0 +1,72 @@
+package com.shop.config;
+
+import com.shop.realm.UserRealm;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.util.SavedRequest;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+@Configuration
+public class ShiroConfig {
+
+    @Bean
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        // 设置安全管理器
+        shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
+
+        // 添加shiro内置过滤器
+
+        /*
+            anon: 无需认证就可以访问
+            authc: 必须认证了才能访问
+            user: 必须拥有记住我功能才能使用
+            perms: 拥有对某个资源的权限才能访问
+            role: 拥有某个角色权限才能访问
+         */
+        Map<String, String> filterMap = new LinkedHashMap<>();
+        filterMap.put("/user/add", "authc");
+        filterMap.put("/user/update", "authc");
+
+        filterMap.put("/user/add", "perms[user:add]");
+        filterMap.put("/user/update", "perms[user:update]");
+
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
+        // 设置登录的请求
+        shiroFilterFactoryBean.setLoginUrl("/user/login");
+
+        // 设置未授权的请求
+        shiroFilterFactoryBean.setUnauthorizedUrl("/user/noAuth");
+        return shiroFilterFactoryBean;
+    }
+
+    // 关联UserRealm
+    @Bean(name = "defaultWebSecurityManager")
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
+        // 创建securityManager
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(userRealm);
+        return securityManager;
+    }
+
+    // 创建realm对象
+    @Bean
+    public UserRealm userRealm() {
+        UserRealm userRealm = new UserRealm();
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+        // 设置MD5加密
+        matcher.setHashAlgorithmName("MD5");
+        // 设置散列次数
+        matcher.setHashIterations(1024);
+        userRealm.setCredentialsMatcher(matcher);
+        return userRealm;
+    }
+
+}
