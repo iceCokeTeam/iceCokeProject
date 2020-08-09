@@ -45,7 +45,7 @@ public class ShiroConfig {
         filterMap.put("/swagger-resources/**", "anon");
         filterMap.put("/v2/**", "anon");
         filterMap.put("/webjars/**", "anon");
-//        filterMap.put("/**", "authc");
+//        filterMap.put("/admin/test", "anon");
         Map<String, Filter> filter = new HashMap<>();
         filter.put("jwt", new JwtFilter());
         shiroFilterFactoryBean.setFilters(filter);
