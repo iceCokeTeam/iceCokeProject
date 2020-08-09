@@ -35,17 +35,17 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         String token = ((HttpServletRequest) request).getHeader(TOKEN_HEADER_NAME);
-        if (token != null) {
-            return executeLogin(request, response);
-        }
-        String url = ((HttpServletRequest) request).getRequestURL().toString();
-        if (url.matches(".*admin.*")) {
-            JSONObject json = new JSONObject();
-            json.put("status", HttpCode.FORBIDDEN);
-            json.put("msg", Message.AUTHENTICATION_FAILED);
-            ServletUtils.renderString((HttpServletResponse) response, json.toJSONString());
-            return false;
-        }
+//        if (token != null) {
+//            return executeLogin(request, response);
+//        }
+//        String url = ((HttpServletRequest) request).getRequestURL().toString();
+//        if (url.matches(".*admin.*")) {
+//            JSONObject json = new JSONObject();
+//            json.put("status", HttpCode.FORBIDDEN);
+//            json.put("msg", Message.AUTHENTICATION_FAILED);
+//            ServletUtils.renderString((HttpServletResponse) response, json.toJSONString());
+//            return false;
+//        }
         // 如果请求头不存在 Token，则可能是执行登陆操作或者是游客状态访问，无需检查 token，直接返回 true
         return true;
     }

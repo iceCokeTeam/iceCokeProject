@@ -11,7 +11,7 @@
         select adminName, name, email, status, createTime, loginTime from admin;
     </select>
 
-    <select id="countAdmin" resultType="Int">
+    <select id="countAdmin" resultType="int">
         select count(*) from admin;
     </select>
 

@@ -1,4 +1,4 @@
-package com.shop.utils;
+package com.shop.component;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 
 public class MultiRealmAuthenticator extends ModularRealmAuthenticator {
-	private static final Logger log = LoggerFactory.getLogger(com.shop.utils.MultiRealmAuthenticator.class);
+	private static final Logger log = LoggerFactory.getLogger(MultiRealmAuthenticator.class);
 
 	@Override
 	protected AuthenticationInfo doMultiRealmAuthentication(Collection<Realm> realms, AuthenticationToken token)
