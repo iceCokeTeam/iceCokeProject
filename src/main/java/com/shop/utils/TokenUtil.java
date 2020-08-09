@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.util.StringUtils;
 
 import java.util.Calendar;
@@ -12,17 +13,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * APP登录Token的生成和解析
- *
- */
 public class TokenUtil {
 
     public static final String SECRET = "JaKLJOoasdlfj";
 
     // token 过期时间: 10天
     public static final int calendarField = Calendar.SECOND;
-    public static final int calendarInterval = 10;
+    public static final int calendarInterval = 1000;
 
 
     public static String createToken(String userId) throws Exception {
@@ -42,6 +39,7 @@ public class TokenUtil {
         String token = JWT.create().withHeader(map) // header
                 .withClaim("iss", "Service") // payload
                 .withClaim("aud", "APP").withClaim("userId", null == userId ? null : userId)
+                .withClaim("type", "admin")
                 .withIssuedAt(iatDate) // sign time
                 .withExpiresAt(expiresDate) // expire time
                 .sign(Algorithm.HMAC256(SECRET)); // signature
@@ -62,7 +60,7 @@ public class TokenUtil {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             jwt = verifier.verify(token);
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
         return jwt.getClaims();
     }
@@ -75,7 +73,7 @@ public class TokenUtil {
      */
     public static Long getAppUID(String token) {
         Map<String, Claim> claims = verifyToken(token);
-        Claim user_id_claim = claims.get("user_id");
+        Claim user_id_claim = claims.get("userId");
         if (null == user_id_claim || StringUtils.isEmpty(user_id_claim.asString())) {
             return null;
         }
