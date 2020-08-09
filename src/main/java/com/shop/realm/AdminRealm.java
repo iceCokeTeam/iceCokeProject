@@ -31,9 +31,7 @@ public class AdminRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("233admin");
         CustomizedToken token = (CustomizedToken) authenticationToken;
-        System.out.println("admin");
         if (token.getLoginType().equals("admin")) {
             Admin admin = adminService.selectAdminByName(token.getUsername());
             if (admin == null)

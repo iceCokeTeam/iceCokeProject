@@ -28,8 +28,8 @@ public class JwtRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
-        System.out.println("jwt");
-        System.out.println(token);
+        if (token == null)
+            return null;
         Map<String, Claim> stringClaimMap = TokenUtil.verifyToken(token);
         if (stringClaimMap == null || stringClaimMap.isEmpty() || stringClaimMap.get("userId") == null) {
             throw new IncorrectCredentialsException();

@@ -15,4 +15,11 @@ class ShopApplicationTests {
 
     }
 
+    @Test
+    void test() {
+        String url = "/admin/test";
+        boolean b = url.matches(".*admin.*");
+        System.out.println(b);
+    }
+
 }

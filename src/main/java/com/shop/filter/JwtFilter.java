@@ -1,20 +1,17 @@
 package com.shop.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.shop.exception.IncorrectAccountException;
-import com.shop.token.CustomizedToken;
 import com.shop.token.JwtToken;
 import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
-import com.shop.utils.Result;
+import com.shop.utils.ServletUtils;
 import lombok.SneakyThrows;
-import org.apache.shiro.SecurityUtils;
+import org.apache.coyote.ErrorState;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -41,6 +38,14 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if (token != null) {
             return executeLogin(request, response);
         }
+        String url = ((HttpServletRequest) request).getRequestURL().toString();
+        if (url.matches(".*admin.*")) {
+            JSONObject json = new JSONObject();
+            json.put("status", HttpCode.FORBIDDEN);
+            json.put("msg", Message.AUTHENTICATION_FAILED);
+            ServletUtils.renderString((HttpServletResponse) response, json.toJSONString());
+            return false;
+        }
         // 如果请求头不存在 Token，则可能是执行登陆操作或者是游客状态访问，无需检查 token，直接返回 true
         return true;
     }
@@ -59,7 +64,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         try {
             getSubject(request, response).login(jwtToken);
         } catch (IncorrectCredentialsException e) {
-            System.out.println("helloabc");
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.setCharacterEncoding("utf-8");
             httpServletResponse.setContentType("application/json;charset=UTF-8");
@@ -68,24 +72,26 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             jsonObject.put("msg", Message.AUTHENTICATION_FAILED);
             httpServletResponse.getWriter().print(jsonObject);
             return false;
+        } catch (AuthenticationException e) {
+            return false;
         }
         // 如果没有抛出异常则代表登入成功，返回true
         return true;
     }
 
     // 跨域支持
-    @Override
-    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
-        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
-
-        if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
-            httpServletResponse.setStatus(HttpStatus.OK.value());
-            return false;
-        }
-        return super.preHandle(request, response);
-    }
+//    @Override
+//    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
+//        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+//        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+//        httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
+//        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
+//        httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
+//
+//        if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
+//            httpServletResponse.setStatus(HttpStatus.OK.value());
+//            return false;
+//        }
+//        return super.preHandle(request, response);
+//    }
 }

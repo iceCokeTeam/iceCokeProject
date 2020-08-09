@@ -4,6 +4,7 @@ import com.shop.filter.JwtFilter;
 import com.shop.realm.AdminRealm;
 import com.shop.realm.JwtRealm;
 import com.shop.realm.UserRealm;
+import com.shop.utils.MultiRealmAuthenticator;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
@@ -68,7 +69,7 @@ public class ShiroConfig {
         // 创建securityManager
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置realm
-        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+        MultiRealmAuthenticator authenticator = new MultiRealmAuthenticator();
         List<Realm> realms = new ArrayList<>();
         realms.add(adminRealm);
         realms.add(userRealm);

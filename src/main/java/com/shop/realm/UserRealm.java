@@ -30,9 +30,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("233user");
         CustomizedToken token = (CustomizedToken) authenticationToken;
-        System.out.println("user");
         if (token.getLoginType().equals("user")){
             User user = userService.selectUserByName(token.getUsername());
             if (user == null)
