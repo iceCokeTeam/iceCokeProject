@@ -7,8 +7,8 @@
     <select id="selectBrandByList" resultType="Brand">
         select id, brandName, logo, introduce from brand
         <where>
-            <if test="name != null and name != ''">
-                and name like concat('%', #{name}, '%')
+            <if test="brandName != null and brandName != ''">
+                and brandName like concat('%', #{brandName}, '%')
             </if>
         </where>
     </select>
@@ -18,7 +18,11 @@
     </insert>
 
     <delete id="deleteBrand" parameterType="int">
-        delete from brand where id = #{id}
+        delete from brand where id = #{id};
     </delete>
+
+    <select id="selectBrandById" resultType="Brand">
+        select * from brand where id = #{id};
+    </select>
 
 </mapper>

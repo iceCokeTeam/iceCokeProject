@@ -8,9 +8,11 @@ import java.util.List;
 @Mapper
 public interface BrandMapper {
 
-    List<Brand> selectBrandList(String name);
+    List<Brand> selectBrandList(String brandName);
 
     int insertBrand(Brand brand);
 
     int deleteBrand(int id);
+
+    Brand selectBrandById(Integer id);
 }

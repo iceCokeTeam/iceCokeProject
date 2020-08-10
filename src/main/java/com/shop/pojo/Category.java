@@ -8,7 +8,7 @@ import java.util.Date;
 public class Category {
     private Integer id;
     private Integer parentId;
-    private String name;
+    private String categoryName;
     private Date createTime;
     private Date updateTime;
 }

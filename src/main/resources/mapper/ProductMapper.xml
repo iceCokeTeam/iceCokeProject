@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.ProductMapper">
+    <resultMap id="sel_pro" type="Product">
+        <result column="categoryId" property="categoryId"/>
+        <result column="brandId" property="brandId"/>
+        <association property="category" select="com.shop.mapper.CategoryMapper.selectCategoryById" column="categoryId"/>
+        <association property="brand" select="com.shop.mapper.BrandMapper.selectBrandById" column="brandId"/>
+    </resultMap>
+    <select id="selectProduct" resultMap="sel_pro">
+        select * from product;
+    </select>
+</mapper>

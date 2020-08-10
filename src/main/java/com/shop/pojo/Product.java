@@ -1,5 +1,6 @@
 package com.shop.pojo;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.util.Date;
@@ -7,8 +8,8 @@ import java.util.Date;
 @Data
 public class Product {
     private Integer id;
-    private Category category;
-    private Brand brand;
+    private Integer categoryId;
+    private Integer brandId;
     private String productName;
     private String productImg;
     private String subtitle;
@@ -20,4 +21,6 @@ public class Product {
     private Date createTime;
     private Date updateTime;
 
+    private Category category;
+    private Brand brand;
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> selectCategoryListByType(String name, String parentId);
+    List<Category> selectCategoryListByType(String categoryName, String parentId);
 
     int insertCategory(Category category);
 
