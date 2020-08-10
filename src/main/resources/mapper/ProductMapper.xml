@@ -10,7 +10,36 @@
         <association property="brand" select="com.shop.mapper.BrandMapper.selectBrandById" column="brandId"/>
     </resultMap>
     <select id="selectProductList" resultMap="sel_pro">
-        select * from product where id = #{id};
+        select * from product
+        <where>
+            <if test="categoryId != null">
+                and categoryId = #{categoryId}
+            </if>
+            <if test="brandId != null">
+                and brandId = #{brandId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and productName like concat('%', #{productName}, '%')
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                and subtitle like concat('%', #{subtitle}, '%')
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        order by
+        <if test="priceSort != null">
+            price ${priceSort}
+        </if>
+        <if test="stockSort != null">
+            stock ${stockSort}
+        </if>
+        <if test="createTimeSort != null">
+            createTime ${createTimeSort}
+        </if>
+        <bind name="page" value="(pageSize - 1) * pageNum"/>
+        limit #{page}, #{pageSize};
     </select>
     <insert id="insertProduct" parameterType="Product">
         insert into product (categoryId, brandId, productName, productImg, subtitle, introduce, price, stock, measure, status, createTime, updateTime) values (#{categoryId}, #{brandId}, #{productName}, #{productImg}, #{subtitle}, #{introduce}, #{price}, #{stock}, #{measure}, #{status}, #{createTime}, #{updateTime});

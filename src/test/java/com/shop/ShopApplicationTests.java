@@ -38,8 +38,12 @@ class ShopApplicationTests {
     void test() {
         Product product = new Product();
         Map<String, Object> map = new HashMap<>();
-        map.put("id", 3);
-        System.out.println(productMapper.selectProductList(map));
+        map.put("priceSort", "desc");
+        map.put("pageSize", 1);
+        map.put("pageNum", 1);
+        for (Product product1 : productMapper.selectProductList(map)) {
+            System.out.println(product1);
+        }
 
     }
 
