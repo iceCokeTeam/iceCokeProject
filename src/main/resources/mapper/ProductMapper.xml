@@ -28,18 +28,22 @@
                 and status = #{status}
             </if>
         </where>
-        order by
-        <if test="priceSort != null">
-            price ${priceSort}
+        <if test="priceSort != null or stockSort != null or createTimeSort != null">
+            order by
+            <if test="priceSort != null">
+                price ${priceSort},
+            </if>
+            <if test="stockSort != null">
+                stock ${stockSort},
+            </if>
+            <if test="createTimeSort != null">
+                createTime ${createTimeSort}
+            </if>
+--         </if>
+        <if test="pageIndex != null and pageSize != null">
+            <bind name="page" value="(pageIndex - 1) * pageSize"/>
+            limit #{page}, #{pageSize};
         </if>
-        <if test="stockSort != null">
-            stock ${stockSort}
-        </if>
-        <if test="createTimeSort != null">
-            createTime ${createTimeSort}
-        </if>
-        <bind name="page" value="(pageSize - 1) * pageNum"/>
-        limit #{page}, #{pageSize};
     </select>
     <insert id="insertProduct" parameterType="Product">
         insert into product (categoryId, brandId, productName, productImg, subtitle, introduce, price, stock, measure, status, createTime, updateTime) values (#{categoryId}, #{brandId}, #{productName}, #{productImg}, #{subtitle}, #{introduce}, #{price}, #{stock}, #{measure}, #{status}, #{createTime}, #{updateTime});
@@ -48,6 +52,6 @@
         delete from product where id = #{id};
     </delete>
     <update id="updateProduct">
-        update product set categoryId = #{categoryId}, brandId = #{brandId}, productName = #{productName}, productImg = #{productImg}, subtitle = #{subtitle}, introduce = #{introduce}, price = #{price}, stock = #{stock}, measure = #{measure}, status = #{status}, createTime = #{createTime}, updateTime = #{updateTime};
+        update product set categoryId = #{categoryId}, brandId = #{brandId}, productName = #{productName}, productImg = #{productImg}, subtitle = #{subtitle}, introduce = #{introduce}, price = #{price}, stock = #{stock}, measure = #{measure}, status = #{status}, createTime = #{createTime}, updateTime = #{updateTime} where id = #{id};
     </update>
 </mapper>

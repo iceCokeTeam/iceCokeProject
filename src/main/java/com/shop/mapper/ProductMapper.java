@@ -9,4 +9,10 @@ import java.util.Map;
 @Mapper
 public interface ProductMapper {
     List<Product> selectProductList(Map<String, Object> map);
+
+    int insertProduct(Product product);
+
+    int deleteProduct(Integer id);
+
+    int updateProduct(Product product);
 }
