@@ -9,7 +9,16 @@
         <association property="category" select="com.shop.mapper.CategoryMapper.selectCategoryById" column="categoryId"/>
         <association property="brand" select="com.shop.mapper.BrandMapper.selectBrandById" column="brandId"/>
     </resultMap>
-    <select id="selectProduct" resultMap="sel_pro">
-        select * from product;
+    <select id="selectProductList" resultMap="sel_pro">
+        select * from product where id = #{id};
     </select>
+    <insert id="insertProduct" parameterType="Product">
+        insert into product (categoryId, brandId, productName, productImg, subtitle, introduce, price, stock, measure, status, createTime, updateTime) values (#{categoryId}, #{brandId}, #{productName}, #{productImg}, #{subtitle}, #{introduce}, #{price}, #{stock}, #{measure}, #{status}, #{createTime}, #{updateTime});
+    </insert>
+    <delete id="deleteProduct">
+        delete from product where id = #{id};
+    </delete>
+    <update id="updateProduct">
+        update product set categoryId = #{categoryId}, brandId = #{brandId}, productName = #{productName}, productImg = #{productImg}, subtitle = #{subtitle}, introduce = #{introduce}, price = #{price}, stock = #{stock}, measure = #{measure}, status = #{status}, createTime = #{createTime}, updateTime = #{updateTime};
+    </update>
 </mapper>

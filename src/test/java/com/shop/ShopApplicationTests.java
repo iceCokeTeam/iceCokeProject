@@ -12,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @SpringBootTest
@@ -34,14 +36,10 @@ class ShopApplicationTests {
 
     @Test
     void test() {
-        Category category = new Category();
-        category.setId(1);
         Product product = new Product();
-        product.setCategoryId(1);
-        product.setBrandId(1);
-        product.setCategory(category);
-        System.out.println(categoryMapper.selectCategoryById(1));
-        System.out.println(productMapper.selectProduct(product));
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", 3);
+        System.out.println(productMapper.selectProductList(map));
 
     }
 
