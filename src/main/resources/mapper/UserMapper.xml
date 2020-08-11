@@ -20,8 +20,10 @@
             </if>
         </where>
         order by updateTime desc
-        <bind name="page" value="(pageIndex - 1) * pageSize"/>
-        limit #{page}, #{pageIndex};
+        <if test="pageIndex != null and pageSize != null">
+            <bind name="page" value="(pageIndex - 1) * pageSize"/>
+            limit #{page}, #{pageIndex};
+        </if>
     </select>
 
     <update id="updateUser" parameterType="User">

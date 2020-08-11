@@ -33,10 +33,9 @@ public class AdminRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         CustomizedToken token = (CustomizedToken) authenticationToken;
         if (token.getLoginType().equals("admin")) {
-            Admin admin = adminService.selectAdminByName(token.getUsername());
+            Admin admin = adminService.selectAdminName(token.getUsername());
             if (admin == null)
                 return null;
-
             return new SimpleAuthenticationInfo(admin, admin.getPassword(), ByteSource.Util.bytes("abc"), getName());
         }
         return null;

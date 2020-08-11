@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.OrderDetailMapper">
+    <select id="selectOrderDetailList" resultType="OrderDetail">
+        select * from orderDetail where orderId = #{orderId};
+    </select>
+    <select id="selectOrderDetailById" resultType="OrderDetail">
+        select * from orderDetail where id = #{id};
+    </select>
+    <insert id="insertOrderDetail" parameterType="OrderDetail">
+        <foreach collection="orderDetails" item="item" open="(" close=")" separator=",">
+            insert into orderDetail (orderId, productId, num, price, totalPrice, productName, status, productImg, createTime, updateTime) values (#{item.orderId}, #{item.productId}, #{item.num}, #{item.price}, #{item.totalPrice}, #{item.productName}, #{item.status}, #{item.productImg}, #{item.createTime}, #{item.updateTime});
+        </foreach>
+    </insert>
+    <update id="updateOrderDetail" parameterType="orderDetail">
+        update orderDetail
+        <set>
+            <if test="orderId != null">
+                orderId = #{orderId},
+            </if>
+            <if test="productId != null">
+                productId = #{productId},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="totalPrice != null">
+                totalPrice = #{totalPrice},
+            </if>
+            <if test="productName != null and productName != ''">
+                productName = #{productName},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="productImg != null">
+                productImg = #{productImg},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime}
+            </if>
+        </set>
+        where id = #{id};
+    </update>
+    <delete id="deleteOrderDetailByOrderId">
+        delete from orderDetail where orderId = #{orderId};
+    </delete>
+</mapper>

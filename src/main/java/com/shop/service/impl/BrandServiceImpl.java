@@ -27,6 +27,8 @@ public class BrandServiceImpl implements BrandService {
     public int insertBrand(Brand brand) {
         if (brand == null || brand.getLogo() == null || brand.getBrandName() == null || brand.getIntroduce() == null || brand.getBrandName() == "" || brand.getLogo() == "")
             return FAILED;
+        if (brandMapper.selectBrandByName(brand.getBrandName()).size() != 0)
+            return FAILED;
         return brandMapper.insertBrand(brand);
     }
 
@@ -36,5 +38,10 @@ public class BrandServiceImpl implements BrandService {
             return brandMapper.deleteBrand(Integer.valueOf(id));
         }
         return FAILED;
+    }
+
+    @Override
+    public List<Brand> selectBrandByName(String brandName) {
+        return brandMapper.selectBrandByName(brandName);
     }
 }

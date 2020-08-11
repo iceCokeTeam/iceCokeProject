@@ -42,7 +42,7 @@ public class CategoryController {
         return Result.create(HttpCode.BAD_REQUEST, Message.DEL_FAILED);
     }
 
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public Result categoryList(CategoryDTO categoryDTO) {
         List<Category> categoryList = categoryService.selectCategoryList(categoryDTO);
         JSONObject json = new JSONObject();

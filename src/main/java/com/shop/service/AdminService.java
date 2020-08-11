@@ -1,6 +1,8 @@
 package com.shop.service;
 
+import com.shop.dto.AdminDTO;
 import com.shop.pojo.Admin;
+import com.shop.vo.AdminVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,13 +12,15 @@ public interface AdminService {
 
     Integer registerAdmin(Admin admin);
 
-    List<Admin> selectAdminList();
+    List<AdminVO> selectAdminList(AdminDTO adminDTO);
 
-    Integer countAdmin();
+    AdminVO selectAdminByName(String adminName);
 
-    Admin selectAdminByName(String adminName);
-
-    int updateAdmin(Admin admin);
+    int updateAdmin(AdminDTO adminDTO);
 
     int deleteAdmin(String id);
+
+    int updateLoginTime(Integer id);
+
+    Admin selectAdminName(String adminName);
 }

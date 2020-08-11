@@ -37,7 +37,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if (token != null) {
             return executeLogin(request, response);
         }
-        String url = ((HttpServletRequest) request).getRequestURL().toString();
+//        String url = ((HttpServletRequest) request).getRequestURL().toString();
 //        if (url.matches(".*admin.*") && !url.matches("/admin/login/?")) {
 //            JSONObject json = new JSONObject();
 //            json.put("status", HttpCode.FORBIDDEN);

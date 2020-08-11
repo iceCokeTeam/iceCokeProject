@@ -13,9 +13,24 @@
         insert into cart (userId, productId, quantity, createTime, updateTime) values (#{userId}, #{productId}, #{quantity}, #{createTime}, #{updateTime});
     </insert>
     <update id="updateCart" parameterType="Cart">
-        update cart set productId = #{productId}, quantity = #{quantity}, updateTime = #{updateTime} where id = #{id};
+        update cart
+        <set>
+            <if test="productId != null">
+                productId = #{productId},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+        </set>
+        where id = #{id};
     </update>
     <delete id="deleteCart">
-        delete from cart where id = #{id};
+        delete from cart where id in
+        <foreach collection="carts" item="item" open="(" close=")" separator=",">
+            #{item.id}
+        </foreach>
     </delete>
 </mapper>

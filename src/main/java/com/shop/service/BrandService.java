@@ -10,4 +10,6 @@ public interface BrandService {
     int insertBrand(Brand brand);
 
     int deleteBrand(String id);
+
+    List<Brand> selectBrandByName(String brandName);
 }

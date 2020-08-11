@@ -8,7 +8,28 @@
     </insert>
 
     <select id="selectAdminList" resultType="Admin">
-        select adminName, nickName, email, status, createTime, loginTime from admin;
+        select id, adminName, nickName, email, status, createTime, loginTime, adminImg from admin
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="adminName != null and adminName != ''">
+                and adminName like concat('%', #{adminName}, '%')
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nickName like concat('%', #{nickName}, '%')
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        <if test="pageIndex != null and pageSize != null">
+            <bind name="page" value="(pageIndex - 1) * pageSize"/>
+            limit #{page}, #{pageSize};
+        </if>
     </select>
 
     <select id="countAdmin" resultType="int">
@@ -20,7 +41,24 @@
     </select>
 
     <update id="updateAdmin" parameterType="Admin">
-        update admin set adminName = #{adminName}, nickName = #{nickName}, email = #{email}, status = #{status}, createTime = #{createTime}, loginTime = #{loginTime}, adminImg = #{adminImg};
+        update admin
+        <set>
+            <if test="nickName != null and nickName != ''">
+                nickName = #{nickName},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="loginTime != null">
+                loginTime = #{loginTime},
+            </if>
+            <if test="adminImg != null and adminImg != ''">
+                adminImg = #{adminImg};
+            </if>
+        </set>
     </update>
     <delete id="deleteAdmin">
         delete from admin where id = #{id};

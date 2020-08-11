@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.OrderMapper">
+    <select id="selectOrderList" resultType="Order">
+        select * from `order`
+        <where>
+            <if test="userId != null">
+                and userId = #{userId}
+            </if>
+            <if test="orderNum != null">
+                and orderNum = #{orderNum}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="payNum != null">
+                and payNum = #{payNum}
+            </if>
+            <if test="orderStatus != null">
+                and orderStatus = #{orderStatus}
+            </if>
+            <if test="payType != null">
+                and payType = #{payType}
+            </if>
+        </where>
+        <if test="pageIndex != null and pageSize != null">
+            <bind name="page" value="(pageIndex - 1) * pageSize"/>
+            limit #{page}, #{pageSize};
+        </if>
+    </select>
+    <select id="selectOrderById" resultType="Order">
+        select * from order where id = #{id};
+    </select>
+    <insert id="insertOrder" parameterType="Order">
+        insert into order (userId, orderNum, address, phone, name, remark, freight, payTime, payNum, orderStatus, payMoney, payType, successTime, sendTime, createTime, updateTime) values (#{userId}, #{orderNum}, #{address}, #{phone}, #{name}, #{remark}, #{freight}, #{payTime}, #{payNum}, #{orderStatus}, #{payMoney}, #{payType}, #{successTime}, #{sendTime}, #{createTime}, #{updateTime});
+    </insert>
+    <update id="updateOrder" parameterType="Order">
+        update order
+        <set>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="freight != null">
+                freight = #{freight},
+            </if>
+            <if test="payTime != null">
+                payTime = #{payTime},
+            </if>
+            <if test="payNum != null">
+                payNum = #{payNum},
+            </if>
+            <if test="orderStatus != null">
+                orderStatus = #{orderStatus},
+            </if>
+            <if test="payType != null">
+                payType = #{payType},
+            </if>
+            <if test="successTime != null">
+                successTime = #{successTime},
+            </if>
+            <if test="sendTime != null">
+                sendTime = #{sendTime},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime}
+            </if>
+        </set>
+    </update>
+    <delete id="deleteOrder">
+        delete from order where id = #{id};
+    </delete>
+</mapper>

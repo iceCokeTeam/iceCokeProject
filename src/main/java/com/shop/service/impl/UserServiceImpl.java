@@ -6,10 +6,12 @@ import com.shop.pojo.User;
 import com.shop.service.UserService;
 import com.shop.utils.ConstantUtil;
 import com.shop.utils.RegexUtil;
+import com.shop.vo.UserVO;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +30,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectUserList(UserDTO userDTO) {
+    public List<UserVO> selectUserList(UserDTO userDTO) {
         Map<String, Object> map = new HashMap<>();
+        map.put("userName", userDTO.getUserName());
+        map.put("status", userDTO.getStatus());
         map.put("pageIndex", userDTO.getPageIndex());
-        return userMapper.selectUserList(map);
+        map.put("pageSize", userDTO.getPageSize());
+        List<User> users = userMapper.selectUserList(map);
+        List<UserVO> userVOs = new ArrayList<>();
+        for (User user : users) {
+            userVOs.add(transformUserVO(user));
+        }
+        return userVOs;
     }
 
     @Override
@@ -47,15 +57,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectUserById(String id) {
+    public UserVO selectUserById(String id) {
         if (RegexUtil.isDigital(id))
-            return userMapper.selectUserById(Integer.valueOf(id));
+            return transformUserVO(userMapper.selectUserById(Integer.valueOf(id)));
         return null;
     }
 
     @Override
     public User selectUserByName(String userName) {
         return userMapper.selectUserByName(userName);
+    }
+
+    public UserVO transformUserVO(User user) {
+        UserVO userVO = new UserVO();
+        userVO.setId(user.getId());
+        userVO.setUserName(user.getUserName());
+        userVO.setNickName(user.getNickName());
+        userVO.setPhone(user.getPhone());
+        userVO.setUserImg(user.getUserImg());
+        userVO.setSex(user.getSex());
+        userVO.setStatus(user.getStatus());
+        userVO.setAddress(user.getAddress());
+        userVO.setCreateTime(user.getCreateTime());
+        return userVO;
     }
 
 }

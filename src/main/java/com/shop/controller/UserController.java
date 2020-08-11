@@ -10,6 +10,7 @@ import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
 import com.shop.utils.Result;
 import com.shop.utils.TokenUtil;
+import com.shop.vo.UserVO;
 import org.apache.ibatis.annotations.Update;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -42,20 +43,23 @@ public class UserController {
 
     @PostMapping("/list")
     public Result userList(UserDTO userDTO) {
-        List<User> users = userService.selectUserList(userDTO);
-        if (users == null)
+        List<UserVO> userVOs = userService.selectUserList(userDTO);
+        if (userVOs == null)
             return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
         JSONObject json = new JSONObject();
-        json.put("data", users);
+        json.put("data", userVOs);
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 
     @PostMapping("/id")
-    public Result userById(String id) {
-        User user = userService.selectUserById(id);
-        if (user == null)
-            return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
-        return Result.create(HttpCode.OK, Message.SELECT_SUCCESS);
+    public Result selectUserById(String id) {
+        UserVO userVO = userService.selectUserById(id);
+        JSONObject json = new JSONObject();
+        if (userVO != null){
+            json.put("data", userVO);
+            return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
+        }
+        return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
     }
 
     @PostMapping("/update")

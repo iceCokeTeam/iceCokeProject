@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/brand")
@@ -28,7 +29,7 @@ public class BrandController {
     @PostMapping("/add")
     public Result addBrand(Brand brand) {
         if (brandService.insertBrand(brand) == 1) {
-            return Result.create(HttpCode.OK, Message.SELECT_SUCCESS);
+            return Result.create(HttpCode.OK, Message.ADD_SUCCESS);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.ADD_FAILED);
     }
@@ -40,6 +41,15 @@ public class BrandController {
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.DEL_SUCCESS);
     }
+
+    @PostMapping("/brandName")
+    public Result selectBrandByName(String brandName) {
+        List<Brand> brands = brandService.selectBrandByName(brandName);
+        JSONObject json = new JSONObject();
+        json.put("data", brands);
+        return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
+    }
+
 
 
 }

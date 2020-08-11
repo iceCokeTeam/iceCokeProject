@@ -15,4 +15,8 @@ public interface BrandMapper {
     int deleteBrand(int id);
 
     Brand selectBrandById(Integer id);
+
+    List<Brand> selectBrandByName(String brandName);
+
+    int updateBrand(Brand brand);
 }

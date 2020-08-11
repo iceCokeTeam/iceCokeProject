@@ -7,15 +7,17 @@
         select * from category
         <where>
             <if test="categoryName != null and categoryName != ''">
-                categoryName like concat('%', #{categoryName}, '%')
+                and categoryName like concat('%', #{categoryName}, '%')
             </if>
             <if test="parentId != null">
-                parentId = #{parentId}
+                and parentId = #{parentId}
             </if>
         </where>
-        order by #{updateTime} desc
-        <bind name="page" value="(pageIndex - 1) * pageSize"/>
-        limit #{page}, #{pageSize};
+        order by updateTime desc
+        <if test="pageIndex != null and pageSize != null">
+            <bind name="page" value="(pageIndex - 1) * pageSize"/>
+            limit #{page}, #{pageSize};
+        </if>
     </select>
     <insert id="insertCategory" parameterType="Category">
         insert into category(categoryName, parentId, createTime) values (#{categoryName}, #{parentId}, #{createTime})

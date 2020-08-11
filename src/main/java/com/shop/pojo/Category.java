@@ -11,6 +11,4 @@ public class Category {
     private String categoryName;
     private Date createTime;
     private Date updateTime;
-    private Integer pageIndex;
-    private Integer pageSize;
 }

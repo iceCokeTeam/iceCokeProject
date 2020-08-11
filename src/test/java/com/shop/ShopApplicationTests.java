@@ -37,4 +37,10 @@ class ShopApplicationTests {
         System.out.println(userMapper.selectUserById(1));
     }
 
+    @Test
+    public void testCategory() {
+        Map<String, Object> map = new HashMap<>();
+        System.out.println(categoryMapper.selectCategoryList(map));
+    }
+
 }
