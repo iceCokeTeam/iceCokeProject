@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.CartMapper">
+    <resultMap id="sel_cart" type="Cart">
+        <association property="product" javaType="Product" select="com.shop.mapper.ProductMapper.selectProductById" column="productId"/>
+    </resultMap>
+    <select id="selectCartList" resultMap="sel_cart">
+        select * from cart where userId = #{userId} group by updateTime desc;
+    </select>
+    <insert id="insertCart" parameterType="Cart">
+        insert into cart (userId, productId, quantity, createTime, updateTime) values (#{userId}, #{productId}, #{quantity}, #{createTime}, #{updateTime});
+    </insert>
+    <update id="updateCart" parameterType="Cart">
+        update cart set productId = #{productId}, quantity = #{quantity}, updateTime = #{updateTime} where id = #{id};
+    </update>
+    <delete id="deleteCart">
+        delete from cart where id = #{id};
+    </delete>
+</mapper>

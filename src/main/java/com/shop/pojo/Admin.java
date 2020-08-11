@@ -9,7 +9,7 @@ public class Admin {
     private Integer id;
     private String adminName;
     private String password;
-    private String name;
+    private String nickName;
     private String email;
     private Date createTime;
     private Date loginTime;

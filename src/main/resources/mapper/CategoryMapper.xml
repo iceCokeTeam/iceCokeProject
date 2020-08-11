@@ -3,16 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.CategoryMapper">
-    <select id="selectCategoryListByType" resultType="Category">
+    <select id="selectCategoryList" resultType="Category">
         select * from category
         <where>
             <if test="categoryName != null and categoryName != ''">
-                and categoryName like concat('%', #{categoryName}, '%')
+                categoryName like concat('%', #{categoryName}, '%')
             </if>
-            <if test="parentId != null and parentId != ''">
-                and parentId = #{parentId}
+            <if test="parentId != null">
+                parentId = #{parentId}
             </if>
         </where>
+        order by #{updateTime} desc
+        <bind name="page" value="(pageIndex - 1) * pageSize"/>
+        limit #{page}, #{pageSize};
     </select>
     <insert id="insertCategory" parameterType="Category">
         insert into category(categoryName, parentId, createTime) values (#{categoryName}, #{parentId}, #{createTime})

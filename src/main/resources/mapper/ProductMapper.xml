@@ -54,4 +54,7 @@
     <update id="updateProduct">
         update product set categoryId = #{categoryId}, brandId = #{brandId}, productName = #{productName}, productImg = #{productImg}, subtitle = #{subtitle}, introduce = #{introduce}, price = #{price}, stock = #{stock}, measure = #{measure}, status = #{status}, createTime = #{createTime}, updateTime = #{updateTime} where id = #{id};
     </update>
+    <select id="selectProductById" resultType="Product">
+        select * from product where id = #{id};
+    </select>
 </mapper>

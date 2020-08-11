@@ -1,15 +1,17 @@
 package com.shop.service.impl;
 
+import com.shop.dto.CategoryDTO;
 import com.shop.mapper.CategoryMapper;
 import com.shop.pojo.Category;
 import com.shop.service.CategoryService;
 import com.shop.utils.RegexUtil;
-import com.shop.utils.TimeUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -17,21 +19,29 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<Category> selectCategoryListByType(String categoryName, String parentId) {
-        if (parentId == null || parentId == "")
-            return categoryMapper.selectCategoryListByType(categoryName, null);
-        else if (RegexUtil.isDigital(parentId))
-            return categoryMapper.selectCategoryListByType(categoryName, Integer.valueOf(parentId));
-        return null;
+    public List<Category> selectCategoryList(CategoryDTO categoryDTO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("parentId", categoryDTO.getParentId());
+        map.put("categoryName", categoryDTO.getCategoryName());
+        map.put("updateTime", categoryDTO.getUpdateTime());
+        map.put("pageIndex", categoryDTO.getPageIndex());
+        map.put("pageSize", categoryDTO.getPageSize());
+        if (RegexUtil.isDigital(categoryDTO.getParentId()))
+            return categoryMapper.selectCategoryList(map);
+        map.remove("parentId");
+        return categoryMapper.selectCategoryList(map);
     }
 
     @Override
     public int insertCategory(Category category) {
         if (judge(category))
             return 0;
-        if (categoryMapper.selectCategoryListByType(category.getCategoryName(), null).size() > 0)
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryName", category.getCategoryName());
+        if (categoryMapper.selectCategoryList(map).size() > 0)
             return 0;
         category.setCreateTime(new Date());
+        category.setUpdateTime(new Date());
         return categoryMapper.insertCategory(category);
     }
 

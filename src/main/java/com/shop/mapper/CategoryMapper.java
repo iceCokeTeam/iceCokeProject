@@ -4,11 +4,12 @@ import com.shop.pojo.Category;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CategoryMapper {
 
-    List<Category> selectCategoryListByType(String categoryName, Integer parentId);
+    List<Category> selectCategoryList(Map<String, Object> map);
 
     int insertCategory(Category category);
 

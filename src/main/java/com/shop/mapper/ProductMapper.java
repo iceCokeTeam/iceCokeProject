@@ -15,4 +15,6 @@ public interface ProductMapper {
     int deleteProduct(Integer id);
 
     int updateProduct(Product product);
+
+    Product selectProductById(Integer id);
 }

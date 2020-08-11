@@ -4,18 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.AdminMapper">
     <insert id="registerAdmin" parameterType="Admin">
-        insert into admin(adminName, password, name, email, status, createTime, adminImg) values (#{adminName}, #{password}, #{name}, #{email}, #{status}, #{createTime}, #{adminImg});
+        insert into admin(adminName, password, nickName, email, status, createTime, adminImg) values (#{adminName}, #{password}, #{nickName}, #{email}, #{status}, #{createTime}, #{adminImg});
     </insert>
 
     <select id="selectAdminList" resultType="Admin">
-        select adminName, name, email, status, createTime, loginTime from admin;
+        select adminName, nickName, email, status, createTime, loginTime from admin;
     </select>
 
     <select id="countAdmin" resultType="int">
         select count(*) from admin;
     </select>
 
-    <select id="selectAdminByName" parameterType="String" resultType="Admin">
-        select adminName, password, name, email, status, adminImg from admin where adminName = #{adminName};
+    <select id="selectAdminByName" resultType="Admin">
+        select id, adminName, password, nickName, email, status, adminImg from admin where adminName = #{adminName};
     </select>
+
+    <update id="updateAdmin" parameterType="Admin">
+        update admin set adminName = #{adminName}, nickName = #{nickName}, email = #{email}, status = #{status}, createTime = #{createTime}, loginTime = #{loginTime}, adminImg = #{adminImg};
+    </update>
+    <delete id="deleteAdmin">
+        delete from admin where id = #{id};
+    </delete>
 </mapper>

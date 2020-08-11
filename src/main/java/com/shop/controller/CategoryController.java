@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.shop.dto.CategoryDTO;
 import com.shop.pojo.Category;
 import com.shop.service.CategoryService;
 import com.shop.utils.HttpCode;
@@ -42,8 +43,8 @@ public class CategoryController {
     }
 
     @RequestMapping("/list")
-    public Result categoryList(String name, String parentId) {
-        List<Category> categoryList = categoryService.selectCategoryListByType(name, parentId);
+    public Result categoryList(CategoryDTO categoryDTO) {
+        List<Category> categoryList = categoryService.selectCategoryList(categoryDTO);
         JSONObject json = new JSONObject();
         if (categoryList != null && categoryList.size() != 0) {
             json.put("data", categoryList);

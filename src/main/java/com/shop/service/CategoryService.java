@@ -1,12 +1,13 @@
 package com.shop.service;
 
+import com.shop.dto.CategoryDTO;
 import com.shop.pojo.Category;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> selectCategoryListByType(String categoryName, String parentId);
+    List<Category> selectCategoryList(CategoryDTO categoryDTO);
 
     int insertCategory(Category category);
 

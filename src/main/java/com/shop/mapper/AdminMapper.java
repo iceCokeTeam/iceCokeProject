@@ -15,5 +15,9 @@ public interface AdminMapper {
 
     Integer countAdmin();
 
-    Admin selectAdminByName(@Param("adminName") String adminName);
+    Admin selectAdminByName(String adminName);
+
+    int updateAdmin(Admin admin);
+
+    int deleteAdmin(Integer id);
 }

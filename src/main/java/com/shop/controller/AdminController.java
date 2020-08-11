@@ -7,6 +7,7 @@ import com.shop.token.CustomizedToken;
 import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
 import com.shop.utils.Result;
+import com.shop.utils.TokenUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -26,12 +27,6 @@ public class AdminController {
 
     @PostMapping("/register")
     public Result registerAdmin(Admin admin) {
-        if (admin.getAdminName() == null && admin.getPassword() == null && admin.getEmail() == null && admin.getName() == null && admin.getAdminImg() == null) {
-            return Result.create(HttpCode.BAD_REQUEST, Message.PARAMETER_ERROR);
-        }
-        if (adminService.selectAdminByName(admin.getAdminName()) != null) {
-            return Result.create(HttpCode.OK, Message.USER_EXISTS);
-        }
         if (adminService.registerAdmin(admin) == 1) {
             return Result.create(HttpCode.OK, Message.REGISTER_SUCCESS);
         }
@@ -39,13 +34,15 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public Result loginAdmin(String adminName, String password) {
+    public Result loginAdmin(String adminName, String password) throws Exception {
         Subject subject = SecurityUtils.getSubject();
         CustomizedToken token = new CustomizedToken(adminName, password, "admin");
         JSONObject json = new JSONObject();
         try {
             subject.login(token);
-            json.put("admin", adminService.selectAdminByName(adminName));
+            Admin realAdmin = adminService.selectAdminByName(adminName);
+            json.put("admin", realAdmin);
+            json.put("authToken", TokenUtil.createToken(realAdmin.getId().toString()));
             return Result.create(HttpCode.OK, Message.LOGIN_SUCCESS, json);
         } catch (UnknownAccountException e) {
             return Result.create(HttpCode.BAD_REQUEST, Message.USER_NOT_EXISTS);
@@ -56,8 +53,20 @@ public class AdminController {
         }
     }
 
-    @RequestMapping("/test")
-    public String test() {
-        return "test";
+    @PostMapping("/update")
+    public Result updateAdmin(Admin admin) {
+        if (adminService.updateAdmin(admin) == 1) {
+            return Result.create(HttpCode.OK, Message.UPDATE_SUCCESS);
+        }
+        return Result.create(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
     }
+
+    @PostMapping("/del")
+    public Result delAdmin(String id) {
+        if (adminService.deleteAdmin(id) == 1) {
+            return Result.create(HttpCode.OK, Message.DEL_SUCCESS);
+        }
+        return Result.create(HttpCode.BAD_REQUEST, Message.DEL_FAILED);
+    }
+
 }

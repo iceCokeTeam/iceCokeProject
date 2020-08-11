@@ -15,4 +15,8 @@ public interface AdminService {
     Integer countAdmin();
 
     Admin selectAdminByName(String adminName);
+
+    int updateAdmin(Admin admin);
+
+    int deleteAdmin(String id);
 }

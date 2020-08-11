@@ -5,12 +5,13 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class Category {
+public class Cart {
     private Integer id;
-    private Integer parentId;
-    private String categoryName;
+    private Integer userId;
+    private Integer productId;
+    private Integer quantity;
     private Date createTime;
     private Date updateTime;
-    private Integer pageIndex;
-    private Integer pageSize;
+
+    private Product product;
 }
