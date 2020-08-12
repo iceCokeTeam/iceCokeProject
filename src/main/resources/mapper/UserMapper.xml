@@ -13,7 +13,7 @@
         select * from user
         <where>
             <if test="userName != null and userName != ''">
-                and userName lick concat('%', #{userName}, '%')
+                and userName like concat('%', #{userName}, '%')
             </if>
             <if test="status != null">
                 and status = #{status}

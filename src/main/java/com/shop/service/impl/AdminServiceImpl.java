@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
     // 管理员添加
     @Override
     public Integer registerAdmin(Admin admin) {
-        if(admin.getAdminName() == null && admin.getPassword() == null && admin.getEmail() == null && admin.getNickName() == null && admin.getAdminImg() == null)
+        if(admin.getAdminName() == null && admin.getPassword() == null)
             return ConstantUtil.FAILED;
         if (adminMapper.selectAdminByName(admin.getAdminName()) != null)
             return ConstantUtil.FAILED;

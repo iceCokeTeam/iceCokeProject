@@ -26,6 +26,7 @@
                 and status = #{status}
             </if>
         </where>
+        order by createTime desc
         <if test="pageIndex != null and pageSize != null">
             <bind name="page" value="(pageIndex - 1) * pageSize"/>
             limit #{page}, #{pageSize};
