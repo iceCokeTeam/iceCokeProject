@@ -9,7 +9,7 @@
             <if test="categoryName != null and categoryName != ''">
                 and categoryName like concat('%', #{categoryName}, '%')
             </if>
-            <if test="parentId != null">
+            <if test="parentId != null and parentId != ''">
                 and parentId = #{parentId}
             </if>
         </where>
@@ -26,7 +26,19 @@
         delete from category where id = #{id};
     </delete>
     <update id="updateCategory" parameterType="Category">
-        update category set categoryName = #{categoryName} and parentId = #{parentId} and updateTime = #{updateTime};
+        update category
+         <set>
+            <if test="categoryName != null and categoryName != ''">
+                categoryName = #{categoryName},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime}
+            </if>
+         </set>
+         where id = #{id};
     </update>
     <select id="selectCategoryById" resultType="Category">
         select * from category where id = #{id};

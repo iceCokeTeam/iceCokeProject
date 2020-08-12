@@ -27,9 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
         map.put("updateTime", categoryDTO.getUpdateTime());
         map.put("pageIndex", categoryDTO.getPageIndex());
         map.put("pageSize", categoryDTO.getPageSize());
-        if (RegexUtil.isDigital(categoryDTO.getParentId()))
-            return categoryMapper.selectCategoryList(map);
-        map.remove("parentId");
         return categoryMapper.selectCategoryList(map);
     }
 

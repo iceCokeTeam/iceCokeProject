@@ -38,8 +38,8 @@ public class CategoryController {
     @PostMapping("/update")
     public Result updateCategory(Category category) {
         if (categoryService.updateCategory(category) == 1)
-            return Result.create(HttpCode.OK, Message.DEL_SUCCESS);
-        return Result.create(HttpCode.BAD_REQUEST, Message.DEL_FAILED);
+            return Result.create(HttpCode.OK, Message.UPDATE_SUCCESS);
+        return Result.create(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
     }
 
     @PostMapping("/list")

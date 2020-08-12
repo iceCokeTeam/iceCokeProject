@@ -1,10 +1,7 @@
 package com.shop;
 
 import com.shop.mapper.*;
-import com.shop.pojo.Address;
-import com.shop.pojo.Cart;
-import com.shop.pojo.OrderDetail;
-import com.shop.pojo.User;
+import com.shop.pojo.*;
 import com.shop.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,8 +39,11 @@ class ShopApplicationTests {
 
     @Test
     public void testCategory() {
-        Map<String, Object> map = new HashMap<>();
-        System.out.println(categoryMapper.selectCategoryList(map));
+        Category category = new Category();
+        category.setId(10);
+        category.setParentId(10);
+        category.setCategoryName("hello");
+        System.out.println(categoryMapper.updateCategory(category));
     }
 
     @Test
