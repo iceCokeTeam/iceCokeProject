@@ -8,6 +8,7 @@ import java.util.Date;
 public class AdminDTO {
     private Integer id;
     private String adminName;
+    private String password;
     private String nickName;
     private String email;
     private Date createTime;

@@ -46,6 +46,9 @@
             <if test="nickName != null and nickName != ''">
                 nickName = #{nickName},
             </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
             <if test="status != null">
                 status = #{status},
             </if>
@@ -56,7 +59,7 @@
                 loginTime = #{loginTime},
             </if>
             <if test="adminImg != null and adminImg != ''">
-                adminImg = #{adminImg};
+                adminImg = #{adminImg}
             </if>
         </set>
         where id = #{id}

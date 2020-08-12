@@ -67,6 +67,7 @@ public class AdminServiceImpl implements AdminService {
         admin.setEmail(adminDTO.getEmail());
         admin.setStatus(adminDTO.getStatus());
         admin.setAdminImg(adminDTO.getAdminImg());
+        admin.setPassword(adminDTO.getPassword());
         admin.setId(adminDTO.getId());
         return adminMapper.updateAdmin(admin);
     }
