@@ -14,4 +14,6 @@ public interface CartMapper {
     int deleteCart(List<Integer> carts);
 
     int updateCart(Cart cart);
+
+    Cart selectCartByProductId(Cart cart);
 }

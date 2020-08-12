@@ -44,7 +44,8 @@ public class UserController {
         if (userVOs == null)
             return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
         JSONObject json = new JSONObject();
-        json.put("data", userVOs);
+        json.put("userList", userVOs);
+        json.put("userAmount", userService.userAmount());
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 
@@ -53,7 +54,7 @@ public class UserController {
         UserVO userVO = userService.selectUserById(id);
         JSONObject json = new JSONObject();
         if (userVO != null){
-            json.put("data", userVO);
+            json.put("user", userVO);
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);

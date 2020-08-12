@@ -26,9 +26,12 @@
         delete from category where id = #{id};
     </delete>
     <update id="updateCategory" parameterType="Category">
-        update category set name = #{categoryName} and parentId = #{parentId} and updateTime = #{updateTime};
+        update category set categoryName = #{categoryName} and parentId = #{parentId} and updateTime = #{updateTime};
     </update>
     <select id="selectCategoryById" resultType="Category">
         select * from category where id = #{id};
+    </select>
+    <select id="categoryAmount" resultType="int">
+        select count(*) from category;
     </select>
 </mapper>

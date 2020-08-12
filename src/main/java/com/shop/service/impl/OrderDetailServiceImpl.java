@@ -36,7 +36,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         Date date = new Date();
         for (OrderDetailDTO orderDetailDTO : orderDetailDTOs) {
             OrderDetail orderDetail = transformOrderDetail(orderDetailDTO);
-            orderDetail.setCrateTime(date);
+            orderDetail.setCreateTime(date);
             orderDetails.add(orderDetail);
         }
         return orderDetailMapper.insertOrderDetail(orderDetails);

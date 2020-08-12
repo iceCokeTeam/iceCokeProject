@@ -12,4 +12,6 @@ public interface BrandService {
     int deleteBrand(String id);
 
     List<Brand> selectBrandByName(String brandName);
+
+    int brandAmount();
 }

@@ -61,6 +61,11 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.updateProduct(product);
     }
 
+    @Override
+    public int productAmount() {
+        return productMapper.productAmount();
+    }
+
     public Map<String, Object> setSelect(ProductDTO productDTO) throws Exception {
         Class cls = productDTO.getClass();
         Field[] fields = cls.getDeclaredFields();
@@ -73,10 +78,10 @@ public class ProductServiceImpl implements ProductService {
                 continue;
             map.put(str, value);
         }
-        if (map.get("pageIndex") == null)
-            map.put("pageIndex", 1);
-        if (map.get("pageSize") == null)
-            map.put("pageSize", 5);
+//        if (map.get("pageIndex") == null)
+//            map.put("pageIndex", 1);
+//        if (map.get("pageSize") == null)
+//            map.put("pageSize", 5);
         if (map.get("priceSort") == null)
             map.put("priceSort", "desc");
         if (map.get("stockSort") == null)

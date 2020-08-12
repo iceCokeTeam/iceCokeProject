@@ -10,6 +10,7 @@ import com.shop.utils.Result;
 import lombok.Data;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -26,7 +27,7 @@ public class CartController {
         List<Cart> carts = cartService.selectCartList(userId);
         if (carts != null) {
             JSONObject json = new JSONObject();
-            json.put("data", carts);
+            json.put("cartList", carts);
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
@@ -49,7 +50,7 @@ public class CartController {
 
     @PostMapping("/update")
     public Result updateCart(CartDTO cartDTO) {
-        if (cartService.updateCart(cartDTO) == 1) {
+        if (cartDTO.getId() != null && cartService.updateCart(cartDTO) == 1) {
             return Result.create(HttpCode.OK, Message.UPDATE_SUCCESS);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);

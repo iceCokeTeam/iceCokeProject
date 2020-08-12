@@ -26,7 +26,8 @@ public class OrderController {
         List<Order> orders = orderService.selectOrderList(orderDTO);
         if (orders != null) {
             JSONObject json = new JSONObject();
-            json.put("data", orders);
+            json.put("orderList", orders);
+            json.put("orderAmount", orderService.orderAmount());
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);

@@ -33,6 +33,12 @@ public class CartServiceImpl implements CartService {
         cart.setProductId(cartDTO.getProductId());
         cart.setQuantity(cartDTO.getQuantity());
         cart.setUserId(cartDTO.getUserId());
+        Cart c = cartMapper.selectCartByProductId(cart);
+        if (c != null) {
+            cart.setId(c.getId());
+            cart.setUpdateTime(new Date());
+            return cartMapper.updateCart(cart);
+        }
         cart.setCreateTime(new Date());
         cart.setUpdateTime(new Date());
         return cartMapper.insertCart(cart);
@@ -46,6 +52,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public int updateCart(CartDTO cartDTO) {
         Cart cart = new Cart();
+        cart.setId(cartDTO.getId());
         cart.setProductId(cartDTO.getProductId());
         cart.setQuantity(cartDTO.getQuantity());
         cart.setUserId(cartDTO.getUserId());

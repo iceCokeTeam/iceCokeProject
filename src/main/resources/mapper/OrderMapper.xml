@@ -83,4 +83,7 @@
     <delete id="deleteOrder">
         delete from `order` where id = #{id};
     </delete>
+    <select id="orderAmount" resultType="int">
+        select count(*) from `order`;
+    </select>
 </mapper>

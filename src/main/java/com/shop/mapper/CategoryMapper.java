@@ -19,4 +19,6 @@ public interface CategoryMapper {
 
     Category selectCategoryById(Integer id);
 
+    int categoryAmount();
+
 }

@@ -46,8 +46,9 @@ public class CategoryController {
     public Result categoryList(CategoryDTO categoryDTO) {
         List<Category> categoryList = categoryService.selectCategoryList(categoryDTO);
         JSONObject json = new JSONObject();
-        if (categoryList != null && categoryList.size() != 0) {
-            json.put("data", categoryList);
+        if (categoryList != null) {
+            json.put("categoryList", categoryList);
+            json.put("categoryAmount", categoryService.categoryAmount());
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);

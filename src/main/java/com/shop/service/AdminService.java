@@ -23,4 +23,6 @@ public interface AdminService {
     int updateLoginTime(Integer id);
 
     Admin selectAdminName(String adminName);
+
+    int adminAmount();
 }

@@ -4,6 +4,7 @@ import com.shop.dto.CategoryDTO;
 import com.shop.mapper.CategoryMapper;
 import com.shop.pojo.Category;
 import com.shop.service.CategoryService;
+import com.shop.utils.ConstantUtil;
 import com.shop.utils.RegexUtil;
 import org.springframework.stereotype.Service;
 
@@ -35,11 +36,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int insertCategory(Category category) {
         if (judge(category))
-            return 0;
+            return ConstantUtil.FAILED;
         Map<String, Object> map = new HashMap<>();
         map.put("categoryName", category.getCategoryName());
         if (categoryMapper.selectCategoryList(map).size() > 0)
-            return 0;
+            return ConstantUtil.FAILED;
         category.setCreateTime(new Date());
         category.setUpdateTime(new Date());
         return categoryMapper.insertCategory(category);
@@ -48,17 +49,22 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int deleteCategory(String id) {
         if (RegexUtil.isDigital(id)) {
-            return 0;
+            return categoryMapper.deleteCategory(Integer.valueOf(id));
         }
-        return categoryMapper.deleteCategory(Integer.valueOf(id));
+        return ConstantUtil.FAILED;
     }
 
     @Override
     public int updateCategory(Category category) {
         if (judge(category))
-            return 0;
+            return ConstantUtil.FAILED;
         category.setUpdateTime(new Date());
         return categoryMapper.updateCategory(category);
+    }
+
+    @Override
+    public int categoryAmount() {
+        return categoryMapper.categoryAmount();
     }
 
     public boolean judge(Category category) {

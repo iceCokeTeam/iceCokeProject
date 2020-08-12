@@ -14,7 +14,7 @@ public interface AdminMapper {
 
     List<Admin> selectAdminList(Map<String, Object> map);
 
-    Integer countAdmin();
+    int adminAmount();
 
     Admin selectAdminByName(String adminName);
 

@@ -1,19 +1,16 @@
 package com.shop;
 
-import com.shop.mapper.AddressMapper;
-import com.shop.mapper.CategoryMapper;
-import com.shop.mapper.ProductMapper;
-import com.shop.mapper.UserMapper;
+import com.shop.mapper.*;
 import com.shop.pojo.Address;
+import com.shop.pojo.Cart;
+import com.shop.pojo.OrderDetail;
 import com.shop.pojo.User;
 import com.shop.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @SpringBootTest
@@ -30,7 +27,13 @@ class ShopApplicationTests {
     private AddressMapper addressMapper;
 
     @Resource
+    private CartMapper cartMapper;
+
+    @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private OrderDetailMapper orderDetailMapper;
 
     @Test
     public void testUser() {
@@ -41,6 +44,30 @@ class ShopApplicationTests {
     public void testCategory() {
         Map<String, Object> map = new HashMap<>();
         System.out.println(categoryMapper.selectCategoryList(map));
+    }
+
+    @Test
+    public void testCart() {
+        Cart cart = new Cart();
+        List<Integer> carts = new ArrayList<>();
+        carts.add(10);
+        System.out.println(cartMapper.deleteCart(carts));
+    }
+
+    @Test
+    public void testOrderDetail() {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setTotalPrice(100.0);
+        orderDetail.setStatus(1);
+        orderDetail.setProductName("hello");
+        orderDetail.setPrice(10.0);
+        orderDetail.setOrderId(1);
+        orderDetail.setNum(23);
+        orderDetail.setCreateTime(new Date());
+        orderDetail.setUpdateTime(new Date());
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        orderDetails.add(orderDetail);
+        System.out.println(orderDetailMapper.insertOrderDetail(orderDetails));
     }
 
 }

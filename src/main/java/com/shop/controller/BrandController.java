@@ -22,7 +22,8 @@ public class BrandController {
     @PostMapping("/list")
     public Result brandList(String name) {
         JSONObject json = new JSONObject();
-        json.put("data", brandService.selectBrandList(name));
+        json.put("brandList", brandService.selectBrandList(name));
+        json.put("brandAmount", brandService.brandAmount());
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 
@@ -46,7 +47,7 @@ public class BrandController {
     public Result selectBrandByName(String brandName) {
         List<Brand> brands = brandService.selectBrandByName(brandName);
         JSONObject json = new JSONObject();
-        json.put("data", brands);
+        json.put("brand", brands);
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 

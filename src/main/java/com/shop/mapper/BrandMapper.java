@@ -19,4 +19,6 @@ public interface BrandMapper {
     List<Brand> selectBrandByName(String brandName);
 
     int updateBrand(Brand brand);
+
+    int brandAmount();
 }

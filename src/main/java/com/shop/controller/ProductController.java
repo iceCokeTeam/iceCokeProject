@@ -7,6 +7,7 @@ import com.shop.service.ProductService;
 import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
 import com.shop.utils.Result;
+import org.apache.shiro.session.ProxiedSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,8 @@ public class ProductController {
     @PostMapping("/list")
     public Result productList(ProductDTO productDTO) throws Exception {
         JSONObject json = new JSONObject();
-        json.put("data", productService.selectProductList(productDTO));
+        json.put("productList", productService.selectProductList(productDTO));
+        json.put("productAmount", productService.productAmount());
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 

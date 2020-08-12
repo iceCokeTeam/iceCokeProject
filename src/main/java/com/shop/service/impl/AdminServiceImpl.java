@@ -8,6 +8,7 @@ import com.shop.utils.ConstantUtil;
 import com.shop.utils.RegexUtil;
 import com.shop.vo.AdminVO;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -59,11 +60,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int updateAdmin(AdminDTO adminDTO) {
+        if (adminDTO.getId() == null)
+            return ConstantUtil.FAILED;
         Admin admin = new Admin();
         admin.setNickName(adminDTO.getNickName());
         admin.setEmail(adminDTO.getEmail());
         admin.setStatus(adminDTO.getStatus());
         admin.setAdminImg(adminDTO.getAdminImg());
+        admin.setId(adminDTO.getId());
         return adminMapper.updateAdmin(admin);
     }
 
@@ -95,5 +99,10 @@ public class AdminServiceImpl implements AdminService {
         adminVO.setStatus(admin.getStatus());
         adminVO.setId(admin.getId());
         return adminVO;
+    }
+
+    @Override
+    public int adminAmount() {
+        return adminMapper.adminAmount();
     }
 }

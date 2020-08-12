@@ -14,4 +14,6 @@ public interface CategoryService {
     int deleteCategory(String id);
 
     int updateCategory(Category category);
+
+    int categoryAmount();
 }

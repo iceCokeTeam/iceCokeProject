@@ -64,6 +64,11 @@ public class OrderServiceImpl implements OrderService {
         return ConstantUtil.FAILED;
     }
 
+    @Override
+    public int orderAmount() {
+        return orderMapper.orderAmount();
+    }
+
     public Order transformOrder(OrderDTO orderDTO) {
         Order order = new Order();
         order.setUserId(orderDTO.getUserId());

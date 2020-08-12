@@ -57,4 +57,7 @@
     <select id="selectProductById" resultType="Product">
         select * from product where id = #{id};
     </select>
+    <select id="productAmount" resultType="int">
+        select count(*) from product;
+    </select>
 </mapper>

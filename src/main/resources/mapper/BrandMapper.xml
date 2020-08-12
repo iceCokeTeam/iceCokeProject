@@ -40,6 +40,9 @@
         </set>
     </update>
     <select id="selectBrandByName" resultType="Brand">
-        select * from Brand where brandName like concat('%', #{brandName}, '%');
+        select * from brand where brandName like concat('%', #{brandName}, '%');
+    </select>
+    <select id="brandAmount" resultType="int">
+        select count(*) from brand;
     </select>
 </mapper>

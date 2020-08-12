@@ -16,4 +16,6 @@ public interface OrderService {
     int updateOrder(OrderDTO orderDTO);
 
     int deleteOrder(String id);
+
+    int orderAmount();
 }

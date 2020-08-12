@@ -59,8 +59,12 @@
                 adminImg = #{adminImg};
             </if>
         </set>
+        where id = #{id}
     </update>
     <delete id="deleteAdmin">
         delete from admin where id = #{id};
     </delete>
+    <select id="adminAmount" resultType="int">
+        select count(*) from admin;
+    </select>
 </mapper>

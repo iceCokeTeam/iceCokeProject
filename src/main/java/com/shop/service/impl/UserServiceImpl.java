@@ -11,6 +11,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.nio.file.AccessMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectUserByName(String userName) {
         return userMapper.selectUserByName(userName);
+    }
+
+    @Override
+    public int userAmount() {
+        return userMapper.userAmount();
     }
 
     public UserVO transformUserVO(User user) {

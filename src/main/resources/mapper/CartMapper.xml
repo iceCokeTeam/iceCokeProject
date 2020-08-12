@@ -4,10 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.CartMapper">
     <resultMap id="sel_cart" type="Cart">
+        <result column="productId" property="productId"/>
         <association property="product" javaType="Product" select="com.shop.mapper.ProductMapper.selectProductById" column="productId"/>
     </resultMap>
     <select id="selectCartList" resultMap="sel_cart">
-        select * from cart where userId = #{userId} group by updateTime desc;
+        select * from cart where userId = #{userId} order by updateTime desc;
     </select>
     <insert id="insertCart" parameterType="Cart">
         insert into cart (userId, productId, quantity, createTime, updateTime) values (#{userId}, #{productId}, #{quantity}, #{createTime}, #{updateTime});
@@ -30,7 +31,10 @@
     <delete id="deleteCart">
         delete from cart where id in
         <foreach collection="carts" item="item" open="(" close=")" separator=",">
-            #{item.id}
+            #{item}
         </foreach>
     </delete>
+    <select id="selectCartByProductId" resultType="Cart">
+        select * from cart where productId = #{productId} and userId = #{userId};
+    </select>
 </mapper>

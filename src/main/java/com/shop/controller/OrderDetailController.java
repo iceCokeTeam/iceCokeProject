@@ -8,8 +8,12 @@ import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
 import com.shop.utils.Result;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -26,7 +30,7 @@ public class OrderDetailController {
         List<OrderDetail> orderDetails = orderDetailService.selectOrderDetailList(orderId);
         JSONObject json = new JSONObject();
         if (orderDetails != null) {
-            json.put("data", orderDetails);
+            json.put("orderDetailList", orderDetails);
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);

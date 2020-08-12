@@ -21,4 +21,5 @@ public interface UserMapper {
 
     User selectUserByName(String userName);
 
+    int userAmount();
 }

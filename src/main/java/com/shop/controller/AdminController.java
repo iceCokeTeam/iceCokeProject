@@ -15,7 +15,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,7 +77,8 @@ public class AdminController {
     public Result adminList(AdminDTO adminDTO) {
         List<AdminVO> admins = adminService.selectAdminList(adminDTO);
         JSONObject json = new JSONObject();
-        json.put("data", admins);
+        json.put("adminList", admins);
+        json.put("adminAmount", adminService.adminAmount());
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 
