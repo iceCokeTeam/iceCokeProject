@@ -51,6 +51,12 @@ public class BrandController {
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 
-
+    @PostMapping("/update")
+    public Result updateBrand(Brand brand){
+        if (brandService.updateBrand(brand) == 1) {
+            return Result.create(HttpCode.OK, Message.UPDATE_SUCCESS);
+        }
+        return Result.create(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
+    }
 
 }

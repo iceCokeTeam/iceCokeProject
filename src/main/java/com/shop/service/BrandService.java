@@ -14,4 +14,6 @@ public interface BrandService {
     List<Brand> selectBrandByName(String brandName);
 
     int brandAmount();
+
+    int updateBrand(Brand brand);
 }

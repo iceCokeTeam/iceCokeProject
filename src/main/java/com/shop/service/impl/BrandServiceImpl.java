@@ -3,6 +3,7 @@ package com.shop.service.impl;
 import com.shop.mapper.BrandMapper;
 import com.shop.pojo.Brand;
 import com.shop.service.BrandService;
+import com.shop.utils.ConstantUtil;
 import com.shop.utils.RegexUtil;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,12 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public int brandAmount() {
         return brandMapper.brandAmount();
+    }
+
+    @Override
+    public int updateBrand(Brand brand) {
+        if (brand.getId() == null)
+            return ConstantUtil.FAILED;
+        return brandMapper.updateBrand(brand);
     }
 }
