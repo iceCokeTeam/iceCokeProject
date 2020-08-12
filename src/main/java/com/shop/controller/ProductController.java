@@ -28,8 +28,8 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public Result addProduct(Product product) {
-        if (productService.insertProduct(product) == 1) {
+    public Result addProduct(ProductDTO productDTO) {
+        if (productService.insertProduct(productDTO) == 1) {
             return Result.create(HttpCode.OK, Message.ADD_SUCCESS);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.ADD_FAILED);
@@ -44,8 +44,8 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public Result updateProduct(Product product) {
-        if (productService.updateProduct(product) == 1) {
+    public Result updateProduct(ProductDTO productDTO) {
+        if (productService.updateProduct(productDTO) == 1) {
             return Result.create(HttpCode.OK, Message.UPDATE_SUCCESS);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);

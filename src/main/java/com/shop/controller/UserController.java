@@ -17,10 +17,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -70,7 +67,7 @@ public class UserController {
     }
 
     @PostMapping("/del")
-    public Result delUpdate(String id) {
+    public Result delUser(String id) {
         if (userService.deleteUser(id) == 1) {
             return Result.create(HttpCode.OK, Message.DEL_SUCCESS);
         }

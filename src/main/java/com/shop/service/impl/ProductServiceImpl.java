@@ -4,8 +4,10 @@ import com.shop.dto.ProductDTO;
 import com.shop.mapper.ProductMapper;
 import com.shop.pojo.Product;
 import com.shop.service.ProductService;
+import com.shop.utils.ConstantUtil;
 import com.shop.utils.RegexUtil;
 import com.shop.vo.ProductVO;
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,15 +33,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int insertProduct(Product product) {
-        product.setCreateTime(new Date());
-        product.setUpdateTime(new Date());
-        if (product.getIntroduce() == null || product.getMeasure() == null || product.getProductImg() == null || product.getStatus() == null || product.getProductName() == null || product.getSubtitle() == null || product.getCategoryId() == null || product.getBrandId() == null || product.getPrice() == null || product.getStock() == null)
-            return 0;
+    public int insertProduct(ProductDTO productDTO) {
+        if (productDTO.getProductName() == null)
+            return ConstantUtil.FAILED;
         Map<String, Object> map = new HashMap<>();
-        map.put("productName", product.getProductName());
+        map.put("productName", productDTO.getProductName());
         if (productMapper.selectProductList(map).size() != 0)
-            return 0;
+            return ConstantUtil.FAILED;
+        Product product = transformProduct(productDTO);
+        product.setCreateTime(new Date());
         return productMapper.insertProduct(product);
     }
 
@@ -52,9 +54,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int updateProduct(Product product) {
-        if (product.getId() == null)
+    public int updateProduct(ProductDTO productDTO) {
+        if (productDTO.getId() == null)
             return 0;
+        Product product = transformProduct(productDTO);
         return productMapper.updateProduct(product);
     }
 
@@ -99,5 +102,20 @@ public class ProductServiceImpl implements ProductService {
         productVO.setCreateTime(product.getCreateTime());
         productVO.setUpdateTime(product.getUpdateTime());
         return productVO;
+    }
+
+    public Product transformProduct(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setId(productDTO.getId());
+        product.setProductName(productDTO.getProductName());
+        product.setProductImg(productDTO.getProductImg());
+        product.setSubtitle(productDTO.getSubtitle());
+        product.setIntroduce(productDTO.getIntroduce());
+        product.setPrice(productDTO.getPrice());
+        product.setStock(productDTO.getStock());
+        product.setMeasure(productDTO.getMeasure());
+        product.setStatus(productDTO.getStatus());
+        product.setUpdateTime(new Date());
+        return product;
     }
 }

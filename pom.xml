@@ -95,7 +95,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.2</version>
                 <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <imageName>${docker.image.prefix}-${project.artifactId}</imageName>
                     <imageTags>
                         <imageTag>latest</imageTag>
                     </imageTags>
@@ -104,8 +104,7 @@
                     <workdir>/ROOT</workdir>
                     <cmd>["java", "-version"]</cmd>
                     <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <dockerHost>http://47.93.238.102:2375</dockerHost>
+                    <dockerHost>http://47.93.238.102:8375</dockerHost>
                     <!-- 复制jar包到docker容器的指定目录配置 -->
                     <resources>
                         <resource>

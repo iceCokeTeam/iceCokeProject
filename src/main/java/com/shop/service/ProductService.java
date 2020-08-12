@@ -9,9 +9,9 @@ import java.util.List;
 public interface ProductService {
     List<ProductVO> selectProductList(ProductDTO productDTO) throws Exception;
 
-    int insertProduct(Product product);
+    int insertProduct(ProductDTO productDTO);
 
     int deleteProduct(String id);
 
-    int updateProduct(Product product);
+    int updateProduct(ProductDTO productDTO);
 }

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active: dev
 
 mybatis:
   type-aliases-package: com.shop.pojo
@@ -27,4 +27,6 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   profiles: dev
 
-
+server:
+  servlet:
+    context-path: /shop

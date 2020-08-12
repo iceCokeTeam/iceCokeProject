@@ -41,8 +41,8 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("swagger-bootstrap-ui RESTful APIs")
                 .description("swagger-bootstrap-ui")
-                .termsOfServiceUrl("http://localhost:8080/")
-                .contact(new Contact("shop", "http://localhost:8080/", "123@qq.com"))
+                .termsOfServiceUrl("http://localhost:8888/")
+                .contact(new Contact("shop", "http://localhost:8888/", "123@qq.com"))
                 .version("1.0")
                 .build();
     }

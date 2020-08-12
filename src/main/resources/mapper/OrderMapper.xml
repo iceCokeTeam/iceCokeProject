@@ -34,13 +34,13 @@
         </if>
     </select>
     <select id="selectOrderById" resultType="Order">
-        select * from order where id = #{id};
+        select * from `order` where id = #{id};
     </select>
     <insert id="insertOrder" parameterType="Order">
-        insert into order (userId, orderNum, address, phone, name, remark, freight, payTime, payNum, orderStatus, payMoney, payType, successTime, sendTime, createTime, updateTime) values (#{userId}, #{orderNum}, #{address}, #{phone}, #{name}, #{remark}, #{freight}, #{payTime}, #{payNum}, #{orderStatus}, #{payMoney}, #{payType}, #{successTime}, #{sendTime}, #{createTime}, #{updateTime});
+        insert into `order` (userId, orderNum, address, phone, name, remark, freight, payTime, payNum, orderStatus, payMoney, payType, successTime, sendTime, createTime, updateTime) values (#{userId}, #{orderNum}, #{address}, #{phone}, #{name}, #{remark}, #{freight}, #{payTime}, #{payNum}, #{orderStatus}, #{payMoney}, #{payType}, #{successTime}, #{sendTime}, #{createTime}, #{updateTime});
     </insert>
     <update id="updateOrder" parameterType="Order">
-        update order
+        update `order`
         <set>
             <if test="address != null and address != ''">
                 address = #{address},
@@ -81,6 +81,6 @@
         </set>
     </update>
     <delete id="deleteOrder">
-        delete from order where id = #{id};
+        delete from `order` where id = #{id};
     </delete>
 </mapper>
