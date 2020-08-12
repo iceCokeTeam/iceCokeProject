@@ -11,6 +11,10 @@
                 and brandName like concat('%', #{brandName}, '%')
             </if>
         </where>
+        <if test="pageIndex != null and pageSize != null">
+            <bind name="page" value="(pageIndex - 1) * pageSize"/>
+            limit #{page}, #{pageSize};
+        </if>
     </select>
 
     <insert id="insertBrand" parameterType="Brand">

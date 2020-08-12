@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.shop.dto.BrandDTO;
 import com.shop.pojo.Brand;
 import com.shop.service.BrandService;
 import com.shop.utils.HttpCode;
@@ -20,9 +21,9 @@ public class BrandController {
     private BrandService brandService;
 
     @PostMapping("/list")
-    public Result brandList(String name) {
+    public Result brandList(BrandDTO brandDTO) {
         JSONObject json = new JSONObject();
-        json.put("brandList", brandService.selectBrandList(name));
+        json.put("brandList", brandService.selectBrandList(brandDTO));
         json.put("brandAmount", brandService.brandAmount());
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }

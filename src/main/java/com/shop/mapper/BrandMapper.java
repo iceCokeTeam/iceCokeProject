@@ -4,11 +4,12 @@ import com.shop.pojo.Brand;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BrandMapper {
 
-    List<Brand> selectBrandList(String brandName);
+    List<Brand> selectBrandList(Map<String, Object> map);
 
     int insertBrand(Brand brand);
 
