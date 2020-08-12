@@ -22,7 +22,7 @@
         order by updateTime desc
         <if test="pageIndex != null and pageSize != null">
             <bind name="page" value="(pageIndex - 1) * pageSize"/>
-            limit #{page}, #{pageIndex};
+            limit #{page}, #{pageSize};
         </if>
     </select>
 
