@@ -87,5 +87,16 @@ class ShopApplicationTests {
 
     }
 
+    @Test
+    public void testOrder() {
+        Map<String, Object> map = new HashMap<>();
+        OrderDTO orderDTO = new OrderDTO();
+        List<Order> orders = orderMapper.selectOrderList(map);
+        for (Order order : orders) {
+            System.out.println(order.getUser());
+        }
+
+    }
+
 
 }

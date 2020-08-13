@@ -116,6 +116,7 @@ public class OrderServiceImpl implements OrderService {
         orderVO.setCreateTime(order.getCreateTime());
         orderVO.setUpdateTime(order.getUpdateTime());
         orderVO.setOrderDetail(order.getOrderDetail());
+        System.out.println(order.getUser());
         UserServiceImpl userService = new UserServiceImpl();
         orderVO.setUserVO(userService.transformUserVO(order.getUser()));
         return orderVO;
