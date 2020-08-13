@@ -3,7 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.OrderMapper">
-    <select id="selectOrderList" resultType="Order">
+    <resultMap id="sel_order" type="Order">
+        <result column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <association property="user" javaType="User" column="userId" select="com.shop.mapper.UserMapper.selectUserById"/>
+        <collection property="orderDetail" ofType="OrderDetail" column="id" select="com.shop.mapper.OrderDetailMapper.selectOrderDetailList"/>
+    </resultMap>
+    <select id="selectOrderList" resultMap="sel_order">
         select * from `order`
         <where>
             <if test="userId != null">

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.OrderDetailMapper">
     <select id="selectOrderDetailList" resultType="OrderDetail">
-        select * from orderdetail where orderId = #{orderId};
+        select * from orderdetail where orderId = #{id};
     </select>
     <select id="selectOrderDetailById" resultType="OrderDetail">
         select * from orderdetail where id = #{id};

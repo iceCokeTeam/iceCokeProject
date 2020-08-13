@@ -32,6 +32,9 @@ class ShopApplicationTests {
     @Resource
     private OrderDetailMapper orderDetailMapper;
 
+    @Resource
+    private OrderMapper orderMapper;
+
     @Test
     public void testUser() {
         System.out.println(userMapper.selectUserById(1));
@@ -73,6 +76,15 @@ class ShopApplicationTests {
         product.setCategoryId(1);
         product.setBrandId(1);
         System.out.println(productMapper.updateProduct(product));
+    }
+
+    @Test
+    public void testOrder() {
+        Order order =  new Order();
+        Map<String, Object> map = new HashMap<>();
+        for (Order order1 : orderMapper.selectOrderList(map)) {
+            System.out.println(order1);
+        }
     }
 
 }

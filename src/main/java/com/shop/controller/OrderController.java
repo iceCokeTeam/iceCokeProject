@@ -7,6 +7,7 @@ import com.shop.service.OrderService;
 import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
 import com.shop.utils.Result;
+import com.shop.vo.OrderVO;
 import lombok.Data;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,10 @@ public class OrderController {
 
     @PostMapping("/list")
     public Result orderList(OrderDTO orderDTO) {
-        List<Order> orders = orderService.selectOrderList(orderDTO);
-        if (orders != null) {
+        List<OrderVO> orderVOs = orderService.selectOrderList(orderDTO);
+        if (orderVOs != null) {
             JSONObject json = new JSONObject();
-            json.put("orderList", orders);
+            json.put("orderList", orderVOs);
             json.put("orderAmount", orderService.orderAmount());
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }

@@ -26,7 +26,12 @@ spring:
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
   profiles: dev
+  jackson:
+    default-property-inclusion: non_null
+
 
 server:
   servlet:
     context-path: /shop
+
+

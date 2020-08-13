@@ -1,14 +1,15 @@
-package com.shop.pojo;
+package com.shop.vo;
 
+import com.shop.pojo.OrderDetail;
+import com.shop.pojo.User;
 import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class Order {
+public class OrderVO {
     private Integer id;
-    private Integer userId;
     private String orderNum;
     private String address;
     private String phone;
@@ -25,6 +26,6 @@ public class Order {
     private Date createTime;
     private Date updateTime;
 
-    private User user;
+    private UserVO userVO;
     private List<OrderDetail> orderDetail;
 }

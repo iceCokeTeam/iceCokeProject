@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface OrderDetailMapper {
-    List<OrderDetail> selectOrderDetailList(Integer orderId);
+    List<OrderDetail> selectOrderDetailList(Integer id);
 
     OrderDetail selectOrderDetailById(Integer id);
 

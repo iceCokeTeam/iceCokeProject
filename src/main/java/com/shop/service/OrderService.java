@@ -2,12 +2,13 @@ package com.shop.service;
 
 import com.shop.dto.OrderDTO;
 import com.shop.pojo.Order;
+import com.shop.vo.OrderVO;
 
 import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
-    List<Order> selectOrderList(OrderDTO orderDTO);
+    List<OrderVO> selectOrderList(OrderDTO orderDTO);
 
     Order selectOrderById(String id);
 
