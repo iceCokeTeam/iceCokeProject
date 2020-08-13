@@ -52,7 +52,46 @@
         delete from product where id = #{id};
     </delete>
     <update id="updateProduct">
-        update product set categoryId = #{categoryId}, brandId = #{brandId}, productName = #{productName}, productImg = #{productImg}, subtitle = #{subtitle}, introduce = #{introduce}, price = #{price}, stock = #{stock}, measure = #{measure}, status = #{status}, createTime = #{createTime}, updateTime = #{updateTime} where id = #{id};
+        update product
+         <set>
+             <if test="categoryId != null">
+                  categoryId = #{categoryId},
+             </if>
+             <if test="brandId != null">
+                  brandId = #{brandId},
+             </if>
+             <if test="productName != null and productName != ''">
+                  productName = #{productName},
+             </if>
+             <if test="productImg != null and productImg != ''">
+                  productImg = #{productImg},
+             </if>
+             <if test="subtitle != null and subtitle != ''">
+                  subtitle = #{subtitle},
+             </if>
+             <if test="introduce != null and introduce != ''">
+                  introduce = #{introduce},
+             </if>
+             <if test="price != null">
+                  price = #{price},
+             </if>
+             <if test="stock != null">
+                  stock = #{stock},
+             </if>
+             <if test="measure != null and measure != ''">
+                  measure = #{measure},
+             </if>
+             <if test="status != null">
+                  status = #{status},
+             </if>
+             <if test="createTime != null">
+                  createTime = #{createTime},
+             </if>
+             <if test="updateTime != null">
+                 updateTime = #{updateTime},
+             </if>
+         </set>
+         where id = #{id};
     </update>
     <select id="selectProductById" resultType="Product">
         select * from product where id = #{id};

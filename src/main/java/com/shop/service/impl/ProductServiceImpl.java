@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int updateProduct(ProductDTO productDTO) {
         if (productDTO.getId() == null)
-            return 0;
+            return ConstantUtil.FAILED;
         Product product = transformProduct(productDTO);
         return productMapper.updateProduct(product);
     }

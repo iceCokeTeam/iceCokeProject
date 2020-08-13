@@ -66,4 +66,13 @@ class ShopApplicationTests {
         System.out.println(orderDetailMapper.insertOrderDetail(orderDetails));
     }
 
+    @Test
+    public void testProduct() {
+        Product product = new Product();
+        product.setId(11);
+        product.setCategoryId(1);
+        product.setBrandId(1);
+        System.out.println(productMapper.updateProduct(product));
+    }
+
 }
