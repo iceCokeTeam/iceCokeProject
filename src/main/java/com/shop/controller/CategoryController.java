@@ -48,7 +48,7 @@ public class CategoryController {
         JSONObject json = new JSONObject();
         if (categoryList != null) {
             json.put("categoryList", categoryList);
-            json.put("categoryAmount", categoryService.categoryAmount());
+            json.put("categoryAmount", categoryService.categoryAmount(categoryDTO));
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);

@@ -43,7 +43,7 @@ class ShopApplicationTests {
         category.setParentId(0);
         Map<String, Object> map = new HashMap<>();
         map.put("parentId", 0);
-        System.out.println(categoryMapper.selectCategoryList(map));
+        System.out.println(categoryMapper.categoryAmount(map));
     }
 
     @Test

@@ -44,6 +44,14 @@
         select * from category where id = #{id};
     </select>
     <select id="categoryAmount" resultType="int">
-        select count(*) from category;
+        select count(*) from category
+        <where>
+            <if test="categoryName != null and categoryName != ''">
+                and categoryName like concat('%', #{categoryName}, '%')
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+        </where>
     </select>
 </mapper>

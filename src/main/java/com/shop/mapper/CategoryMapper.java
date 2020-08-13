@@ -19,6 +19,6 @@ public interface CategoryMapper {
 
     Category selectCategoryById(Integer id);
 
-    int categoryAmount();
+    int categoryAmount(Map<String, Object> map);
 
 }

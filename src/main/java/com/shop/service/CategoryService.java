@@ -15,5 +15,5 @@ public interface CategoryService {
 
     int updateCategory(Category category);
 
-    int categoryAmount();
+    int categoryAmount(CategoryDTO categoryDTO);
 }

@@ -60,8 +60,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public int categoryAmount() {
-        return categoryMapper.categoryAmount();
+    public int categoryAmount(CategoryDTO categoryDTO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("parentId", categoryDTO.getParentId());
+        map.put("categoryName", categoryDTO.getCategoryName());
+        return categoryMapper.categoryAmount(map);
     }
 
     public boolean judge(Category category) {
