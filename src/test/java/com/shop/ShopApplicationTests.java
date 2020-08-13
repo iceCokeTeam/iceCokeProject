@@ -66,7 +66,7 @@ class ShopApplicationTests {
         orderDetail.setUpdateTime(new Date());
         List<OrderDetail> orderDetails = new ArrayList<>();
         orderDetails.add(orderDetail);
-        System.out.println(orderDetailMapper.insertOrderDetail(orderDetails));
+        System.out.println(orderDetailMapper.selectOrderDetailList(3));
     }
 
     @Test

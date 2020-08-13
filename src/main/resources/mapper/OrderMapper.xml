@@ -15,10 +15,10 @@
             <if test="userId != null">
                 and userId = #{userId}
             </if>
-            <if test="orderNum != null">
+            <if test="orderNum != null and orderNum != ''">
                 and orderNum = #{orderNum}
             </if>
-            <if test="phone != null">
+            <if test="phone != null and phone != ''">
                 and phone = #{phone}
             </if>
             <if test="name != null and name != ''">
@@ -30,7 +30,7 @@
             <if test="orderStatus != null">
                 and orderStatus = #{orderStatus}
             </if>
-            <if test="payType != null">
+            <if test="payType != null and payType != ''">
                 and payType = #{payType}
             </if>
         </where>

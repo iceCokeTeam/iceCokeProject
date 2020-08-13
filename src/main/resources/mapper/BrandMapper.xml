@@ -42,6 +42,7 @@
                 introduce = #{introduce}
             </if>
         </set>
+        where id = #{id};
     </update>
     <select id="selectBrandByName" resultType="Brand">
         select * from brand where brandName like concat('%', #{brandName}, '%');

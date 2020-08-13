@@ -1,6 +1,7 @@
 package com.shop.service.impl;
 
 import com.shop.dto.OrderDTO;
+import com.shop.mapper.OrderDetailMapper;
 import com.shop.mapper.OrderMapper;
 import com.shop.pojo.Order;
 import com.shop.service.OrderService;
@@ -18,6 +19,9 @@ import java.util.*;
 public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderMapper orderMapper;
+
+    @Resource
+    private OrderDetailMapper orderDetailMapper;
 
     @Override
     public List<OrderVO> selectOrderList(OrderDTO orderDTO) {
@@ -64,8 +68,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int deleteOrder(String id) {
-        if (RegexUtil.isDigital(id))
+        if (RegexUtil.isDigital(id)){
+            orderDetailMapper.deleteOrderDetailByOrderId(Integer.valueOf(id));
             return orderMapper.deleteOrder(Integer.valueOf(id));
+        }
         return ConstantUtil.FAILED;
     }
 

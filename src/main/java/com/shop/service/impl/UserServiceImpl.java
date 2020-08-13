@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     public Integer registerUser(User user) {
         if (selectUserByName(user.getUserName()) != null)
             return ConstantUtil.FAILED;
-        Md5Hash hash = new Md5Hash(user.getPassword(), "def", 1024);
+        Md5Hash hash = new Md5Hash(user.getPassword(), "abc", 1024);
         user.setPassword(hash.toHex());
         return userMapper.registerUser(user);
     }

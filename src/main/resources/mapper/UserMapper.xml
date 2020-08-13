@@ -54,6 +54,7 @@
                 status = #{status}
             </if>
         </set>
+        where id = #{id};
     </update>
     <delete id="deleteUser">
         delete from user where id = #{id};
