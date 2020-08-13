@@ -18,5 +18,6 @@ public interface ProductMapper {
 
     Product selectProductById(Integer id);
 
-    int productAmount();
+    int productAmount(Map<String, Object> map);
+
 }

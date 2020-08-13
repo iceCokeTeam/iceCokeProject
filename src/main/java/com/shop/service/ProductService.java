@@ -15,5 +15,5 @@ public interface ProductService {
 
     int updateProduct(ProductDTO productDTO);
 
-    int productAmount();
+    int productAmount(ProductDTO productDTO);
 }

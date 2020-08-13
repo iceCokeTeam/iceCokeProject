@@ -25,7 +25,7 @@ public class ProductController {
     public Result productList(ProductDTO productDTO) throws Exception {
         JSONObject json = new JSONObject();
         json.put("productList", productService.selectProductList(productDTO));
-        json.put("productAmount", productService.productAmount());
+        json.put("productAmount", productService.productAmount(productDTO));
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 

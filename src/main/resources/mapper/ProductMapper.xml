@@ -58,6 +58,23 @@
         select * from product where id = #{id};
     </select>
     <select id="productAmount" resultType="int">
-        select count(*) from product;
+        select count(*) from product
+        <where>
+            <if test="productName != null and productName != ''">
+                and productName like concat('%', #{productName}, '%')
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="brandId != null">
+                and brandId = #{brandId}
+            </if>
+            <if test="categoryId != null">
+                and categoryId = #{categoryId}
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                and subtitle = #{subtitle}
+            </if>
+        </where>
     </select>
 </mapper>

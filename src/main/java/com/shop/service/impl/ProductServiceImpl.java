@@ -62,8 +62,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int productAmount() {
-        return productMapper.productAmount();
+    public int productAmount(ProductDTO productDTO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("productName", productDTO.getProductName());
+        map.put("status", productDTO.getStatus());
+        map.put("brandId", productDTO.getBrandId());
+        map.put("categoryId", productDTO.getCategoryId());
+        map.put("subtitle", productDTO.getSubtitle());
+        return productMapper.productAmount(map);
     }
 
     public Map<String, Object> setSelect(ProductDTO productDTO) throws Exception {
@@ -78,10 +84,6 @@ public class ProductServiceImpl implements ProductService {
                 continue;
             map.put(str, value);
         }
-//        if (map.get("pageIndex") == null)
-//            map.put("pageIndex", 1);
-//        if (map.get("pageSize") == null)
-//            map.put("pageSize", 5);
         if (map.get("priceSort") == null)
             map.put("priceSort", "desc");
         if (map.get("stockSort") == null)
