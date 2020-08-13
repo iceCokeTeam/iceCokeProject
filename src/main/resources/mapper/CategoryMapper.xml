@@ -54,4 +54,16 @@
             </if>
         </where>
     </select>
+
+    <select id="selectCategoryByParentId" resultType="Category">
+        select * from category where parentId = #{id};
+    </select>
+    <resultMap id="all_level" type="Category">
+        <result column="id" property="id"/>
+        <result column="parentId" property="parentId"/>
+        <collection property="category" ofType="Integer" select="com.shop.mapper.CategoryMapper.selectCategoryByParentId" column="id"/>
+    </resultMap>
+    <select id="allCategoryLevel" resultMap="all_level">
+        select * from category where parentId = 0;
+    </select>
 </mapper>

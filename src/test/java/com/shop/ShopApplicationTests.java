@@ -39,11 +39,7 @@ class ShopApplicationTests {
 
     @Test
     public void testCategory() {
-        Category category = new Category();
-        category.setParentId(0);
-        Map<String, Object> map = new HashMap<>();
-        map.put("parentId", 0);
-        System.out.println(categoryMapper.categoryAmount(map));
+        System.out.println(categoryMapper.allCategoryLevel());
     }
 
     @Test

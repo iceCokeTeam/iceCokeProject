@@ -80,6 +80,10 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(orderDTO.getOrderStatus());
         order.setPayMoney(orderDTO.getPayMoney());
         order.setPayType(orderDTO.getPayType());
+        order.setSuccessTime(orderDTO.getSuccessTime());
+        order.setSendTime(orderDTO.getSendTime());
+        order.setUpdateTime(orderDTO.getUpdateTime());
+        order.setPayTime(orderDTO.getPayTime());
         return order;
     }
 }

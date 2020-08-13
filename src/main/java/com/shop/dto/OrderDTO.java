@@ -2,6 +2,8 @@ package com.shop.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class OrderDTO {
     private Integer id;
@@ -17,4 +19,10 @@ public class OrderDTO {
     private Integer payType;
     private Integer pageIndex;
     private Integer pageSize;
+
+    private Date SuccessTime;
+    private Date sendTime;
+    private Date createTime;
+    private Date updateTime;
+    private Date payTime;
 }

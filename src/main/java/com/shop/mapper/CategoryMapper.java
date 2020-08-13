@@ -21,4 +21,8 @@ public interface CategoryMapper {
 
     int categoryAmount(Map<String, Object> map);
 
+    List<Category> allCategoryLevel();
+
+    List<Category> selectCategoryByParentId(Integer id);
+
 }
