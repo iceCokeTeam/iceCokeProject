@@ -40,10 +40,10 @@ class ShopApplicationTests {
     @Test
     public void testCategory() {
         Category category = new Category();
-        category.setId(10);
-        category.setParentId(10);
-        category.setCategoryName("hello");
-        System.out.println(categoryMapper.updateCategory(category));
+        category.setParentId(0);
+        Map<String, Object> map = new HashMap<>();
+        map.put("parentId", 0);
+        System.out.println(categoryMapper.selectCategoryList(map));
     }
 
     @Test

@@ -9,7 +9,7 @@
             <if test="categoryName != null and categoryName != ''">
                 and categoryName like concat('%', #{categoryName}, '%')
             </if>
-            <if test="parentId != null and parentId != ''">
+            <if test="parentId != null">
                 and parentId = #{parentId}
             </if>
         </where>
