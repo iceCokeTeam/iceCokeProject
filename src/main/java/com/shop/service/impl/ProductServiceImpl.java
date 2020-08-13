@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int insertProduct(ProductDTO productDTO) {
-        if (productDTO.getProductName() == null)
+        if (productDTO.getProductName() == null || !RegexUtil.isDigital(productDTO.getPrice()))
             return ConstantUtil.FAILED;
         Map<String, Object> map = new HashMap<>();
         map.put("productName", productDTO.getProductName());
@@ -113,13 +113,15 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         product.setId(productDTO.getId());
         product.setProductName(productDTO.getProductName());
+        product.setBrandId(Integer.valueOf(productDTO.getBrandId()));
+        product.setCategoryId(Integer.valueOf(productDTO.getCategoryId()));
         product.setProductImg(productDTO.getProductImg());
         product.setSubtitle(productDTO.getSubtitle());
         product.setIntroduce(productDTO.getIntroduce());
-        product.setPrice(productDTO.getPrice());
-        product.setStock(productDTO.getStock());
+        product.setPrice(Double.valueOf(productDTO.getPrice()));
+        product.setStock(Integer.valueOf(productDTO.getStock()));
         product.setMeasure(productDTO.getMeasure());
-        product.setStatus(productDTO.getStatus());
+        product.setStatus(Integer.valueOf(productDTO.getStatus()));
         product.setUpdateTime(new Date());
         return product;
     }

@@ -69,7 +69,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> allCategoryLevel() {
-        return categoryMapper.allCategoryLevel();
+        List<Category> categories = categoryMapper.allCategoryLevel();
+        return categories;
     }
 
     public boolean judge(Category category) {

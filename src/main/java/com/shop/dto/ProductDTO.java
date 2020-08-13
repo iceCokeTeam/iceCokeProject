@@ -9,15 +9,15 @@ public class ProductDTO {
     private String productImg;
     private String subtitle;
     private String introduce;
-    private Double price;
-    private Integer stock;
+    private String price;
+    private String stock;
     private String measure;
-    private Integer status;
+    private String status;
     private Integer pageIndex;
     private Integer pageSize;
     private String priceSort;
     private String stockSort;
     private String createTimeSort;
-    private Integer categoryId;
-    private Integer brandId;
+    private String categoryId;
+    private String brandId;
 }
