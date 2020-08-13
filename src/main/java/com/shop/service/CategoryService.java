@@ -16,4 +16,6 @@ public interface CategoryService {
     int updateCategory(Category category);
 
     int categoryAmount(CategoryDTO categoryDTO);
+
+    List<Category> allCategoryLevel();
 }

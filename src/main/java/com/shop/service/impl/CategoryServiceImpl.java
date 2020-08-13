@@ -67,6 +67,11 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.categoryAmount(map);
     }
 
+    @Override
+    public List<Category> allCategoryLevel() {
+        return categoryMapper.allCategoryLevel();
+    }
+
     public boolean judge(Category category) {
         return category.getCategoryName() == null || category.getParentId() == null || category.getCategoryName() == "";
     }

@@ -53,4 +53,11 @@ public class CategoryController {
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
     }
+
+    @PostMapping("/allLevel")
+    public Result allLevel() {
+        JSONObject json = new JSONObject();
+        json.put("allLevel", categoryService.allCategoryLevel());
+        return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
+    }
 }
