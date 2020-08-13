@@ -70,8 +70,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int userAmount() {
-        return userMapper.userAmount();
+    public int userAmount(UserDTO userDTO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userName", userDTO.getUserName());
+        map.put("status", userDTO.getStatus());
+        return userMapper.userAmount(map);
     }
 
     public UserVO transformUserVO(User user) {

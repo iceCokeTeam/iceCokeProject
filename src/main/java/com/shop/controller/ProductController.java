@@ -7,6 +7,7 @@ import com.shop.service.ProductService;
 import com.shop.utils.HttpCode;
 import com.shop.utils.Message;
 import com.shop.utils.Result;
+import com.shop.vo.ProductVO;
 import org.apache.shiro.session.ProxiedSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,5 +52,15 @@ public class ProductController {
             return Result.create(HttpCode.OK, Message.UPDATE_SUCCESS);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
+    }
+
+    @PostMapping("/id")
+    public Result productById(String id) {
+        ProductVO productVO = productService.selectProductById(id);
+        if (productVO == null)
+            return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
+        JSONObject json = new JSONObject();
+        json.put("product", productVO);
+        return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 }

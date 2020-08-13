@@ -66,6 +66,14 @@
         select * from user where userName = #{userName};
     </select>
     <select id="userAmount" resultType="int">
-        select count(*) from user;
+        select count(*) from user
+        <where>
+            <if test="userName != null and userName != ''">
+                and userName = #{userName}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
     </select>
 </mapper>

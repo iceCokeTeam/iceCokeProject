@@ -45,7 +45,7 @@ public class UserController {
             return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);
         JSONObject json = new JSONObject();
         json.put("userList", userVOs);
-        json.put("userAmount", userService.userAmount());
+        json.put("userAmount", userService.userAmount(userDTO));
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 

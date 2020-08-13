@@ -20,7 +20,6 @@ public class Product {
     private Integer status;
     private Date createTime;
     private Date updateTime;
-
     private Category category;
     private Brand brand;
 }

@@ -72,6 +72,18 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.productAmount(map);
     }
 
+    @Override
+    public ProductVO selectProductById(String id) {
+        if(!RegexUtil.isDigital(id))
+            return null;
+        Product product = productMapper.selectProductById(Integer.valueOf(id));
+        if (product == null){
+            return null;
+        }
+        ProductVO productVO = transformProductVO(product);
+        return productVO;
+    }
+
     public Map<String, Object> setSelect(ProductDTO productDTO) throws Exception {
         Class cls = productDTO.getClass();
         Field[] fields = cls.getDeclaredFields();

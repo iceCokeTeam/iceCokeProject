@@ -16,4 +16,6 @@ public interface ProductService {
     int updateProduct(ProductDTO productDTO);
 
     int productAmount(ProductDTO productDTO);
+
+    ProductVO selectProductById(String id);
 }

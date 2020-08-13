@@ -93,7 +93,7 @@
          </set>
          where id = #{id};
     </update>
-    <select id="selectProductById" resultType="Product">
+    <select id="selectProductById" resultMap="sel_pro">
         select * from product where id = #{id};
     </select>
     <select id="productAmount" resultType="int">

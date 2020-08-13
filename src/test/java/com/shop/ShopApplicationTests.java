@@ -1,8 +1,12 @@
 package com.shop;
 
+import com.shop.dto.OrderDTO;
 import com.shop.mapper.*;
 import com.shop.pojo.*;
 import com.shop.service.CategoryService;
+import com.shop.service.OrderService;
+import com.shop.service.ProductService;
+import com.shop.vo.OrderVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,10 +25,16 @@ class ShopApplicationTests {
     private ProductMapper productMapper;
 
     @Resource
+    private ProductService productService;
+
+    @Resource
     private AddressMapper addressMapper;
 
     @Resource
     private CartMapper cartMapper;
+
+    @Resource
+    private OrderService orderService;
 
     @Resource
     private UserMapper userMapper;
@@ -71,20 +81,11 @@ class ShopApplicationTests {
 
     @Test
     public void testProduct() {
-        Product product = new Product();
-        product.setId(11);
-        product.setCategoryId(1);
-        product.setBrandId(1);
-        System.out.println(productMapper.updateProduct(product));
+//        System.out.println(categoryMapper.selectCategoryById(1));
+        System.out.println(productService.selectProductById("3"));
+
+
     }
 
-    @Test
-    public void testOrder() {
-        Order order =  new Order();
-        Map<String, Object> map = new HashMap<>();
-        for (Order order1 : orderMapper.selectOrderList(map)) {
-            System.out.println(order1);
-        }
-    }
 
 }
