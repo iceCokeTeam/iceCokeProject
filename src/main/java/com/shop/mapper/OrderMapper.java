@@ -18,5 +18,5 @@ public interface OrderMapper {
 
     int deleteOrder(Integer id);
 
-    int orderAmount();
+    int orderAmount(Map<String, Object> map);
 }

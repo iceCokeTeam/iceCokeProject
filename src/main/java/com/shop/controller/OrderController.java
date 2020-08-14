@@ -28,7 +28,7 @@ public class OrderController {
         if (orderVOs != null) {
             JSONObject json = new JSONObject();
             json.put("orderList", orderVOs);
-            json.put("orderAmount", orderService.orderAmount());
+            json.put("orderAmount", orderService.orderAmount(orderDTO));
             return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
         }
         return Result.create(HttpCode.BAD_REQUEST, Message.SELECT_FAILED);

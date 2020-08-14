@@ -6,6 +6,7 @@ import com.shop.pojo.User;
 import com.shop.service.UserService;
 import com.shop.utils.ConstantUtil;
 import com.shop.utils.RegexUtil;
+import com.shop.utils.TimeUtil;
 import com.shop.vo.UserVO;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
         userVO.setSex(user.getSex());
         userVO.setStatus(user.getStatus());
         userVO.setAddress(user.getAddress());
-        userVO.setCreateTime(user.getCreateTime());
+        userVO.setCreateTime(TimeUtil.dateFormat(user.getCreateTime()));
         return userVO;
     }
 

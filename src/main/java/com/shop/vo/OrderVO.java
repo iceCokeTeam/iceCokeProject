@@ -16,15 +16,15 @@ public class OrderVO {
     private String name;
     private String remark;
     private Double freight;
-    private Date payTime;
+    private String payTime;
     private String payNum;
     private Integer orderStatus;
     private Double payMoney;
     private Integer payType;
-    private Date successTime;
-    private Date sendTime;
-    private Date createTime;
-    private Date updateTime;
+    private String successTime;
+    private String sendTime;
+    private String createTime;
+    private String updateTime;
 
     private UserVO userVO;
     private List<OrderDetail> orderDetail;

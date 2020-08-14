@@ -18,5 +18,5 @@ public interface OrderService {
 
     int deleteOrder(String id);
 
-    int orderAmount();
+    int orderAmount(OrderDTO orderDTO);
 }

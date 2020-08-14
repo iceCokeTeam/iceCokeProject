@@ -6,13 +6,17 @@ import com.shop.mapper.OrderMapper;
 import com.shop.pojo.Order;
 import com.shop.service.OrderService;
 import com.shop.utils.ConstantUtil;
+import com.shop.utils.OrderNumUtil;
 import com.shop.utils.RegexUtil;
+import com.shop.utils.TimeUtil;
 import com.shop.vo.OrderVO;
 import com.shop.vo.UserVO;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import org.springframework.core.annotation.OrderUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Time;
 import java.util.*;
 
 @Service
@@ -56,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
         Date date = new Date();
         order.setCreateTime(date);
         order.setPayTime(date);
+        order.setOrderNum(OrderNumUtil.GetRandom());
         return orderMapper.insertOrder(order);
     }
 
@@ -76,8 +81,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int orderAmount() {
-        return orderMapper.orderAmount();
+    public int orderAmount(OrderDTO orderDTO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderNum", orderDTO.getOrderNum());
+        return orderMapper.orderAmount(map);
     }
 
     public Order transformOrder(OrderDTO orderDTO) {
@@ -107,14 +114,14 @@ public class OrderServiceImpl implements OrderService {
         orderVO.setName(order.getName());
         orderVO.setRemark(order.getRemark());
         orderVO.setFreight(order.getFreight());
-        orderVO.setPayTime(order.getPayTime());
+        orderVO.setPayTime(TimeUtil.dateFormat(order.getPayTime()));
         orderVO.setOrderStatus(order.getOrderStatus());
         orderVO.setPayMoney(order.getPayMoney());
         orderVO.setPayType(order.getPayType());
-        orderVO.setSuccessTime(order.getSuccessTime());
-        orderVO.setSendTime(order.getSendTime());
-        orderVO.setCreateTime(order.getCreateTime());
-        orderVO.setUpdateTime(order.getUpdateTime());
+        orderVO.setSuccessTime(TimeUtil.dateFormat(order.getSuccessTime()));
+        orderVO.setSendTime(TimeUtil.dateFormat(order.getSendTime()));
+        orderVO.setCreateTime(TimeUtil.dateFormat(order.getCreateTime()));
+        orderVO.setUpdateTime(TimeUtil.dateFormat(order.getUpdateTime()));
         orderVO.setOrderDetail(order.getOrderDetail());
         System.out.println(order.getUser());
         UserServiceImpl userService = new UserServiceImpl();

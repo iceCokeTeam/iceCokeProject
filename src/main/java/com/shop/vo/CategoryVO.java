@@ -9,8 +9,8 @@ import java.util.Date;
 public class CategoryVO {
     private Integer id;
     private String categoryName;
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
     private Integer pageIndex;
     private Integer pageSize;
 

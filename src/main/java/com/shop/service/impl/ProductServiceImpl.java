@@ -6,6 +6,7 @@ import com.shop.pojo.Product;
 import com.shop.service.ProductService;
 import com.shop.utils.ConstantUtil;
 import com.shop.utils.RegexUtil;
+import com.shop.utils.TimeUtil;
 import com.shop.vo.ProductVO;
 import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
@@ -118,8 +119,8 @@ public class ProductServiceImpl implements ProductService {
         productVO.setStock(product.getStock());
         productVO.setMeasure(product.getMeasure());
         productVO.setStatus(product.getStatus());
-        productVO.setCreateTime(product.getCreateTime());
-        productVO.setUpdateTime(product.getUpdateTime());
+        productVO.setCreateTime(TimeUtil.dateFormat(product.getCreateTime()));
+        productVO.setUpdateTime(TimeUtil.dateFormat(product.getUpdateTime()));
         return productVO;
     }
 

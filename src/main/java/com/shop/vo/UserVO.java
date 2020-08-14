@@ -15,5 +15,5 @@ public class UserVO {
     private String sex;
     private Integer status;
     private Address address;
-    private Date createTime;
+    private String createTime;
 }

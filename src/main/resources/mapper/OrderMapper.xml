@@ -16,7 +16,7 @@
                 and userId = #{userId}
             </if>
             <if test="orderNum != null and orderNum != ''">
-                and orderNum = #{orderNum}
+                and orderNum like concat('%', #{orderNum}, '%')
             </if>
             <if test="phone != null and phone != ''">
                 and phone = #{phone}
@@ -90,6 +90,11 @@
         delete from `order` where id = #{id};
     </delete>
     <select id="orderAmount" resultType="int">
-        select count(*) from `order`;
+        select count(*) from `order`
+        <where>
+            <if test="orderName != null and orderName != ''">
+                and orderName like concat('%', #{orderName}, '%');
+            </if>
+        </where>;
     </select>
 </mapper>
