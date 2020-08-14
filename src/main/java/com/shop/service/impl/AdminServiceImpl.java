@@ -67,7 +67,8 @@ public class AdminServiceImpl implements AdminService {
         admin.setEmail(adminDTO.getEmail());
         admin.setStatus(adminDTO.getStatus());
         admin.setAdminImg(adminDTO.getAdminImg());
-        admin.setPassword(adminDTO.getPassword());
+        Md5Hash hash = new Md5Hash(adminDTO.getPassword(), "abc", 1024);
+        admin.setPassword(hash.toHex());
         admin.setId(adminDTO.getId());
         return adminMapper.updateAdmin(admin);
     }
