@@ -45,7 +45,7 @@ public class AdminController {
             subject.login(token);
             AdminVO realAdmin = adminService.selectAdminByName(adminName);
             json.put("admin", realAdmin);
-            json.put("authToken", TokenUtil.createToken(realAdmin.getId().toString()));
+            json.put("authToken", TokenUtil.createToken(realAdmin.getId().toString(), "admin"));
             adminService.updateLoginTime(realAdmin.getId());
             return Result.create(HttpCode.OK, Message.LOGIN_SUCCESS, json);
         } catch (UnknownAccountException e) {

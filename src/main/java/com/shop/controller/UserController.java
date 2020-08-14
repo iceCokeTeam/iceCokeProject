@@ -84,7 +84,7 @@ public class UserController {
             subject.login(token);
             User realUser = userService.selectUserByName(user.getUserName());
             json.put("user", realUser);
-            json.put("authToken", TokenUtil.createToken(realUser.getId().toString()));
+            json.put("authToken", TokenUtil.createToken(realUser.getId().toString(), "user"));
             return Result.create(HttpCode.OK, Message.LOGIN_SUCCESS, json);
         } catch (UnknownAccountException e) {
             return Result.create(HttpCode.BAD_REQUEST, Message.USER_NOT_EXISTS);

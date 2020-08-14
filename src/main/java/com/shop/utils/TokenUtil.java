@@ -21,7 +21,7 @@ public class TokenUtil {
     public static final int calendarInterval = 1000;
 
 
-    public static String createToken(String userId) throws Exception {
+    public static String createToken(String userId, String type) throws Exception {
         Date iatDate = new Date();
         Calendar nowTime = Calendar.getInstance();
         nowTime.add(calendarField, calendarInterval);
@@ -33,7 +33,7 @@ public class TokenUtil {
 
         String token = JWT.create().withHeader(map)
                 .withClaim("aud", "APP").withClaim("userId", null == userId ? null : userId)
-                .withClaim("type", "admin")
+                .withClaim("type", type)
                 .withIssuedAt(iatDate)
                 .withExpiresAt(expiresDate)
                 .sign(Algorithm.HMAC256(SECRET));

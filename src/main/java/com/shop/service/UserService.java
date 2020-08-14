@@ -22,4 +22,5 @@ public interface UserService {
 
     int userAmount(UserDTO userDTO);
 
+    User selectUser(Integer id);
 }

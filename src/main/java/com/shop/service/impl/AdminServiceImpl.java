@@ -67,8 +67,10 @@ public class AdminServiceImpl implements AdminService {
         admin.setEmail(adminDTO.getEmail());
         admin.setStatus(adminDTO.getStatus());
         admin.setAdminImg(adminDTO.getAdminImg());
-        Md5Hash hash = new Md5Hash(adminDTO.getPassword(), "abc", 1024);
-        admin.setPassword(hash.toHex());
+        if (adminDTO.getPassword() != null){
+            Md5Hash hash = new Md5Hash(adminDTO.getPassword(), "abc", 1024);
+            admin.setPassword(hash.toHex());
+        }
         admin.setId(adminDTO.getId());
         return adminMapper.updateAdmin(admin);
     }
@@ -106,5 +108,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int adminAmount() {
         return adminMapper.adminAmount();
+    }
+
+    @Override
+    public Admin selectAdminById(Integer id) {
+        return adminMapper.selectAdminById(id);
     }
 }

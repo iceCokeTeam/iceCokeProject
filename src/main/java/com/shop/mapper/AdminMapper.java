@@ -21,4 +21,6 @@ public interface AdminMapper {
     int updateAdmin(Admin admin);
 
     int deleteAdmin(Integer id);
+
+    Admin selectAdminById(Integer id);
 }

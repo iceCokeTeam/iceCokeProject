@@ -25,4 +25,6 @@ public interface AdminService {
     Admin selectAdminName(String adminName);
 
     int adminAmount();
+
+    Admin selectAdminById(Integer id);
 }

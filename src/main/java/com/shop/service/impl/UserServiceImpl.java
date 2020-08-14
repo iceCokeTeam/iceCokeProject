@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.nio.file.AccessMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,6 +25,24 @@ public class UserServiceImpl implements UserService {
             return ConstantUtil.FAILED;
         Md5Hash hash = new Md5Hash(user.getPassword(), "abc", 1024);
         user.setPassword(hash.toHex());
+        if (user.getNickName() == null){
+            user.setNickName(user.getUserName());
+        }
+        if (user.getUserImg() == null) {
+            user.setUserImg("https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg");
+        }
+        if (user.getSex() == null){
+            user.setSex("男");
+        }
+        if (user.getAddress() == null) {
+            user.setAddressId(-1);
+        }
+        if (user.getStatus() == null) {
+            user.setStatus(1);
+        }
+        if (user.getCreateTime() == null) {
+            user.setCreateTime(new Date());
+        }
         return userMapper.registerUser(user);
     }
 
@@ -76,6 +91,11 @@ public class UserServiceImpl implements UserService {
         map.put("userName", userDTO.getUserName());
         map.put("status", userDTO.getStatus());
         return userMapper.userAmount(map);
+    }
+
+    @Override
+    public User selectUser(Integer id) {
+        return userMapper.selectUserById(id);
     }
 
     public UserVO transformUserVO(User user) {

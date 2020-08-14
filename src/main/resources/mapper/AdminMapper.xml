@@ -71,4 +71,7 @@
     <select id="adminAmount" resultType="int">
         select count(*) from admin;
     </select>
+    <select id="selectAdminById" resultType="Admin">
+        select * from admin where id = #{id};
+    </select>
 </mapper>
