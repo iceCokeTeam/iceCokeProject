@@ -24,7 +24,7 @@ public class BrandController {
     public Result brandList(BrandDTO brandDTO) {
         JSONObject json = new JSONObject();
         json.put("brandList", brandService.selectBrandList(brandDTO));
-        json.put("brandAmount", brandService.brandAmount());
+        json.put("brandAmount", brandService.brandAmount(brandDTO));
         return Result.create(HttpCode.OK, Message.SELECT_SUCCESS, json);
     }
 

@@ -52,8 +52,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public int brandAmount() {
-        return brandMapper.brandAmount();
+    public int brandAmount(BrandDTO brandDTO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("brandName", brandDTO.getBrandName());
+        return brandMapper.brandAmount(map);
     }
 
     @Override

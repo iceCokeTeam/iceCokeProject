@@ -21,5 +21,5 @@ public interface BrandMapper {
 
     int updateBrand(Brand brand);
 
-    int brandAmount();
+    int brandAmount(Map<String, Object> map);
 }

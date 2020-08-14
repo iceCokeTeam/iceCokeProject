@@ -48,6 +48,11 @@
         select * from brand where brandName like concat('%', #{brandName}, '%');
     </select>
     <select id="brandAmount" resultType="int">
-        select count(*) from brand;
+        select count(*) from brand
+        <where>
+            <if test="brandName != null and brandName != ''">
+                and brandName like concat('%', #{brandName}, '%')
+            </if>
+        </where>
     </select>
 </mapper>
